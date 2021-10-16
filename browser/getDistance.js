@@ -48,5 +48,3 @@ function getDistance(nodeOne, nodeTwo) {
     }
   }
 }
-
-module.exports = getDistance;

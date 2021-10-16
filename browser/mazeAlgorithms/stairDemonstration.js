@@ -1,7 +1,7 @@
 function stairDemonstration(board) {
   let currentIdX = board.height - 1;
   let currentIdY = 0;
-  let relevantStatuses = ["start", "target", "object"];
+  let relevantStatuses = ["start", "target"];
   while (currentIdX > 0 && currentIdY < board.width) {
     let currentId = `${currentIdX}-${currentIdY}`;
     let currentNode = board.nodes[currentId];
@@ -37,4 +37,4 @@ function stairDemonstration(board) {
   }
 }
 
-module.exports = stairDemonstration;
+

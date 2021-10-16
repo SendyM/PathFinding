@@ -20,9 +20,6 @@
                <li id='startButtonDijkstra'><a href="#">Dijkstra's Algorithm</a></li>
                <li id='startButtonAStar2'><a href="#">A* Search</a></li>
                <li id='startButtonGreedy'><a href="#">Greedy Best-first Search</a></li>
-               <li id='startButtonAStar'><a href="#">Swarm Algorithm</a></li>
-               <li id='startButtonAStar3'><a href="#">Convergent Swarm Algorithm</a></li>
-               <li id='startButtonBidirectional'><a href="#">Bidirectional Swarm Algorithm</a></li>
                <li id='startButtonBFS'><a href="#">Breadth-first Search</a></li>
                <li id='startButtonDFS'><a href="#">Depth-first Search</a></li>
              </ul>
@@ -39,10 +36,8 @@
                <li id='startStairDemonstration'><a href="#">Simple Stair Pattern</a></li>
              </ul>
            </li>
-           <li id='startButtonAddObject'><a href="#">Add Bomb</a></li>
            <li id='startButtonStart'><button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize!</button></li>
            <li id='startButtonClearBoard'><a href="#">Clear Board</a></li>
-           <li id='startButtonClearWalls'><a href="#">Clear Walls &amp; Weights</a></li>
            <li id='startButtonClearPath'><a href="#">Clear Path</a></li>
            <li class="dropdown">
              <a id="adjustSpeed" class="dropdown-toggle" data-toggle="dropdown" href="#">Speed: Fast
@@ -64,14 +59,12 @@
             <div class="start"></div>Start Node</li>
           <li>
             <div class="target"></div>Target Node</li>
-          <li id="bombLegend">
-            <div class="object"></div>Bomb Node</li>
           <li id="weightLegend">
             <div class="borderlessWeight"></div>Weight Node</li>
           <li>
             <div class="unvisited"></div>Unvisited Node</li>
           <li>
-            <div class="visited"></div><div class="visitedobject"></div>Visited Nodes</li>
+            <div class="visited"></div>Visited Nodes</li>
           <li>
             <div class="shortest-path"></div>Shortest-path Node</li>
           <li>
@@ -84,5 +77,22 @@
   </body>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src='browser/bundle.js'></script>
+
+  <script src='browser/node.js'></script>
+  <script src='browser/animations/launchAnimations.js'></script>
+  <script src='browser/animations/launchInstantAnimations.js'></script>
+  <script src='browser/animations/mazeGenerationAnimations.js'></script>
+  <script src='browser/pathfindingAlgorithms/algorithm.js'></script>
+  <script src='browser/pathfindingAlgorithms/weighted.js'></script>
+  <script src='browser/pathfindingAlgorithms/astar.js'></script>
+  <script src='browser/pathfindingAlgorithms/dijkstra.js'></script>
+  <script src='browser/mazeAlgorithms/recursiveDivisionMaze.js'></script>
+  <script src='browser/mazeAlgorithms/otherMaze.js'></script>
+  <script src='browser/mazeAlgorithms/otherOtherMaze.js'></script>
+  <script src='browser/mazeAlgorithms/stairDemonstration.js'></script>
+  <script src='browser/mazeAlgorithms/weightsDemonstration.js'></script>
+  <script src='browser/mazeAlgorithms/simpleDemonstration.js'></script>
+  <script src='browser/getDistance.js'></script>
+
+  <script src='browser/board.js'></script>
 </html>

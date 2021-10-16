@@ -4,7 +4,6 @@ function recursiveDivisionMaze(board, rowStart, rowEnd, colStart, colEnd, orient
   }
   if (!surroundingWalls) {
     let relevantIds = [board.start, board.target];
-    if (board.object) relevantIds.push(board.object);
     Object.keys(board.nodes).forEach(node => {
       if (!relevantIds.includes(node)) {
         let r = parseInt(node.split("-")[0]);
@@ -36,7 +35,7 @@ function recursiveDivisionMaze(board, rowStart, rowEnd, colStart, colEnd, orient
       let c = parseInt(node.split("-")[1]);
       if (r === currentRow && c !== colRandom && c >= colStart - 1 && c <= colEnd + 1) {
         let currentHTMLNode = document.getElementById(node);
-        if (currentHTMLNode.className !== "start" && currentHTMLNode.className !== "target" && currentHTMLNode.className !== "object") {
+        if (currentHTMLNode.className !== "start" && currentHTMLNode.className !== "target") {
           board.wallsToAnimate.push(currentHTMLNode);
           board.nodes[node].status = "wall";
         }
@@ -70,7 +69,7 @@ function recursiveDivisionMaze(board, rowStart, rowEnd, colStart, colEnd, orient
       let c = parseInt(node.split("-")[1]);
       if (c === currentCol && r !== rowRandom && r >= rowStart - 1 && r <= rowEnd + 1) {
         let currentHTMLNode = document.getElementById(node);
-        if (currentHTMLNode.className !== "start" && currentHTMLNode.className !== "target" && currentHTMLNode.className !== "object") {
+        if (currentHTMLNode.className !== "start" && currentHTMLNode.className !== "target") {
           board.wallsToAnimate.push(currentHTMLNode);
           board.nodes[node].status = "wall";
         }
@@ -89,4 +88,4 @@ function recursiveDivisionMaze(board, rowStart, rowEnd, colStart, colEnd, orient
   }
 };
 
-module.exports = recursiveDivisionMaze;
+

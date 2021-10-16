@@ -27,4 +27,4 @@ function weightsDemonstration(board) {
   }
 }
 
-module.exports = weightsDemonstration;
+

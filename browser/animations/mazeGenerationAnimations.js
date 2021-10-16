@@ -18,4 +18,4 @@ function mazeGenerationAnimations(board) {
   timeout(0);
 };
 
-module.exports = mazeGenerationAnimations;
+

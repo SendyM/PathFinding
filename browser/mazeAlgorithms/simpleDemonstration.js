@@ -18,4 +18,4 @@ function simpleDemonstration(board) {
   }
 }
 
-module.exports = simpleDemonstration;
+

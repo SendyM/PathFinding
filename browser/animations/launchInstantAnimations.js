@@ -1,8 +1,5 @@
-const weightedSearchAlgorithm = require("../pathfindingAlgorithms/weightedSearchAlgorithm");
-const unweightedSearchAlgorithm = require("../pathfindingAlgorithms/unweightedSearchAlgorithm");
-
-function launchInstantAnimations(board, success, type, object, algorithm, heuristic) {
-  let nodes = object ? board.objectNodesToAnimate.slice(0) : board.nodesToAnimate.slice(0);
+function launchInstantAnimations(board, success, type) {
+  let nodes = board.nodesToAnimate.slice(0);
   let shortestNodes;
   for (let i = 0; i < nodes.length; i++) {
     if (i === 0) {
@@ -11,38 +8,14 @@ function launchInstantAnimations(board, success, type, object, algorithm, heuris
       change(nodes[i], nodes[i - 1]);
     }
   }
-  if (object) {
-    board.objectNodesToAnimate = [];
-    if (success) {
-      board.drawShortestPath(board.object, board.start, "object");
-      board.clearNodeStatuses();
-      let newSuccess;
-      if (type === "weighted") {
-        newSuccess = weightedSearchAlgorithm(board.nodes, board.object, board.target, board.nodesToAnimate, board.boardArray, algorithm, heuristic);
-      } else {
-        newSuccess = unweightedSearchAlgorithm(board.nodes, board.object, board.target, board.nodesToAnimate, board.boardArray, algorithm);
-      }
-      launchInstantAnimations(board, newSuccess, type);
-      shortestNodes = board.objectShortestPathNodesToAnimate.concat(board.shortestPathNodesToAnimate);
-    } else {
-      console.log("Failure.");
-      board.reset();
-      return;
-    }
+  board.nodesToAnimate = [];
+  if (success) {
+    board.drawShortestPath(board.target, board.start);
+    shortestNodes = board.shortestPathNodesToAnimate;
   } else {
-    board.nodesToAnimate = [];
-    if (success) {
-      if (board.isObject) {
-        board.drawShortestPath(board.target, board.object);
-      } else {
-        board.drawShortestPath(board.target, board.start);
-      }
-      shortestNodes = board.objectShortestPathNodesToAnimate.concat(board.shortestPathNodesToAnimate);
-    } else {
-      console.log("Failure");
-      board.reset();
-      return;
-    }
+    console.log("Failure");
+    board.reset();
+    return;
   }
 
   let j;
@@ -54,23 +27,8 @@ function launchInstantAnimations(board, success, type, object, algorithm, heuris
     }
   }
   board.reset();
-  if (object) {
-    shortestPathChange(board.nodes[board.target], shortestNodes[j - 1]);
-    board.objectShortestPathNodesToAnimate = [];
-    board.shortestPathNodesToAnimate = [];
-    board.clearNodeStatuses();
-    let newSuccess;
-    if (type === "weighted") {
-      newSuccess = weightedSearchAlgorithm(board.nodes, board.object, board.target, board.nodesToAnimate, board.boardArray, algorithm);
-    } else {
-      newSuccess = unweightedSearchAlgorithm(board.nodes, board.object, board.target, board.nodesToAnimate, board.boardArray, algorithm);
-    }
-    launchInstantAnimations(board, newSuccess, type);
-  } else {
-    shortestPathChange(board.nodes[board.target], shortestNodes[j - 1]);
-    board.objectShortestPathNodesToAnimate = [];
-    board.shortestPathNodesToAnimate = [];
-  }
+  shortestPathChange(board.nodes[board.target], shortestNodes[j - 1]);
+  board.shortestPathNodesToAnimate = [];
 
   function change(currentNode, previousNode) {
     let currentHTMLNode = document.getElementById(currentNode.id);
@@ -78,11 +36,7 @@ function launchInstantAnimations(board, success, type, object, algorithm, heuris
     if (previousNode) {
       let previousHTMLNode = document.getElementById(previousNode.id);
       if (!relevantClassNames.includes(previousHTMLNode.className)) {
-        if (object) {
-          previousHTMLNode.className = previousNode.weight === 15 ? "instantvisitedobject weight" : "instantvisitedobject";
-        } else {
-          previousHTMLNode.className = previousNode.weight === 15 ? "instantvisited weight" : "instantvisited";
-        }
+        previousHTMLNode.className = previousNode.weight === 15 ? "instantvisited weight" : "instantvisited";
       }
     }
   }
@@ -113,4 +67,4 @@ function launchInstantAnimations(board, success, type, object, algorithm, heuris
 
 };
 
-module.exports = launchInstantAnimations;
+

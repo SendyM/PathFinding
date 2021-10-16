@@ -9,8 +9,6 @@ function Node(id, status) {
   this.totalDistance = Infinity;
   this.heuristicDistance = null;
   this.weight = 0;
-  this.relatesToObject = false;
-  this.overwriteObjectRelation = false;
 
   this.otherid = id;
   this.otherstatus = status;
@@ -20,8 +18,5 @@ function Node(id, status) {
   this.otherstoredDirection = null;
   this.otherdistance = Infinity;
   this.otherweight = 0;
-  this.otherrelatesToObject = false;
-  this.otheroverwriteObjectRelation = false;
 }
 
-module.exports = Node;
