@@ -440,7 +440,7 @@ Board.prototype.toggleButtons = function () {
 
     document.getElementById("startButtonGreedy").onclick = () => {
       document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize Greedy!</button>'
-      this.currentAlgorithm = new DijkstraAlgorithm()
+      this.currentAlgorithm = new GreedyAlgorithm()
       this.changeStartNodeImages();
     }
 
@@ -470,12 +470,6 @@ Board.prototype.toggleButtons = function () {
       this.toggleButtons();
       recursiveDivisionMaze(this, 2, this.height - 3, 2, this.width - 3, "horizontal", false, "wall");
       mazeGenerationAnimations(this);
-    }
-
-    document.getElementById("startButtonCreateMazeWeights").onclick = () => {
-      this.clearWalls();
-      this.clearPath("clickedButton");
-      this.createMazeOne("weight");
     }
 
     document.getElementById("startButtonClearBoard").onclick = () => {
@@ -550,7 +544,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonCreateMazeTwo").className = "navbar-inverse navbar-nav";
     document.getElementById("startButtonCreateMazeThree").className = "navbar-inverse navbar-nav";
     document.getElementById("startButtonCreateMazeFour").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonCreateMazeWeights").className = "navbar-inverse navbar-nav";
     document.getElementById("startStairDemonstration").className = "navbar-inverse navbar-nav";
     document.getElementById("startButtonDFS").className = "navbar-inverse navbar-nav";
     document.getElementById("startButtonBFS").className = "navbar-inverse navbar-nav";
@@ -573,7 +566,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonCreateMazeTwo").onclick = null;
     document.getElementById("startButtonCreateMazeThree").onclick = null;
     document.getElementById("startButtonCreateMazeFour").onclick = null;
-    document.getElementById("startButtonCreateMazeWeights").onclick = null;
     document.getElementById("startStairDemonstration").onclick = null;
     document.getElementById("startButtonClearPath").onclick = null;
     document.getElementById("startButtonClearBoard").onclick = null;
@@ -591,7 +583,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonCreateMazeTwo").className = "navbar-inverse navbar-nav disabledA";
     document.getElementById("startButtonCreateMazeThree").className = "navbar-inverse navbar-nav disabledA";
     document.getElementById("startButtonCreateMazeFour").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonCreateMazeWeights").className = "navbar-inverse navbar-nav disabledA";
     document.getElementById("startStairDemonstration").className = "navbar-inverse navbar-nav disabledA";
     document.getElementById("startButtonDFS").className = "navbar-inverse navbar-nav disabledA";
     document.getElementById("startButtonBFS").className = "navbar-inverse navbar-nav disabledA";

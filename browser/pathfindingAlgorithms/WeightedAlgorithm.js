@@ -4,6 +4,9 @@ class WeightedAlgorithm extends Algorithm {
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
+    if (!start || !target || start === target) {
+      return false;
+    }
     nodes[start].distance = 0;
     nodes[start].direction = "right";
     let unvisitedNodes = Object.keys(nodes);
@@ -53,31 +56,6 @@ class WeightedAlgorithm extends Algorithm {
       targetNode.path = distance[1];
       targetNode.direction = distance[2];
     }
-  }
-
-  getNeighbors(id, nodes, boardArray) {
-    let coordinates = id.split("-");
-    let x = parseInt(coordinates[0]);
-    let y = parseInt(coordinates[1]);
-    let neighbors = [];
-    let potentialNeighbor;
-    if (boardArray[x - 1] && boardArray[x - 1][y]) {
-      potentialNeighbor = `${(x - 1).toString()}-${y.toString()}`
-      if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
-    }
-    if (boardArray[x + 1] && boardArray[x + 1][y]) {
-      potentialNeighbor = `${(x + 1).toString()}-${y.toString()}`
-      if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
-    }
-    if (boardArray[x][y - 1]) {
-      potentialNeighbor = `${x.toString()}-${(y - 1).toString()}`
-      if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
-    }
-    if (boardArray[x][y + 1]) {
-      potentialNeighbor = `${x.toString()}-${(y + 1).toString()}`
-      if (nodes[potentialNeighbor].status !== "wall") neighbors.push(potentialNeighbor);
-    }
-    return neighbors;
   }
 
   getDistance(nodeOne, nodeTwo) {
