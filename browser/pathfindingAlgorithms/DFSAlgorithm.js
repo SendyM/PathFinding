@@ -1,6 +1,6 @@
-class BFSAlgorithm extends Algorithm {
+class DFSAlgorithm extends Algorithm {
   constructor() {
-    super("bfs", "Breadth-first Search");
+    super("dfs", "Depth-first Search");
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
@@ -10,8 +10,9 @@ class BFSAlgorithm extends Algorithm {
     let structure = [nodes[start]];
     let exploredNodes = { start: true };
     while (structure.length) {
-      let currentNode = structure.shift();
+      let currentNode = structure.pop();
       nodesToAnimate.push(currentNode);
+      exploredNodes[currentNode.id] = true
       currentNode.status = "visited";
       if (currentNode.id === target) {
         return "success";
@@ -19,7 +20,6 @@ class BFSAlgorithm extends Algorithm {
       let currentNeighbors = this.getNeighbors(currentNode.id, nodes, boardArray);
       currentNeighbors.forEach(neighbor => {
         if (!exploredNodes[neighbor]) {
-          exploredNodes[neighbor] = true;
           nodes[neighbor].previousNode = currentNode.id;
           structure.push(nodes[neighbor]);
         }
@@ -29,7 +29,7 @@ class BFSAlgorithm extends Algorithm {
   }
 
   getDescription() {
-    return `${this.label} is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!`;
+    return `${this.label} is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!`;
   }
 
 }

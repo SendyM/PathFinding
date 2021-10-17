@@ -446,14 +446,14 @@ Board.prototype.toggleButtons = function () {
 
     document.getElementById("startButtonBFS").onclick = () => {
       document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize BFS!</button>'
-      this.currentAlgorithm = new DijkstraAlgorithm()
+      this.currentAlgorithm = new BFSAlgorithm()
       this.clearWeights();
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonDFS").onclick = () => {
       document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize DFS!</button>'
-      this.currentAlgorithm = new DijkstraAlgorithm()
+      this.currentAlgorithm = new DFSAlgorithm()
       this.clearWeights();
       this.changeStartNodeImages();
     }
