@@ -392,6 +392,20 @@ Board.prototype.toggleButtons = function () {
     window.location.reload(true);
   }
 
+const infoBtn = document.getElementById("InfoB")  
+let prs = 1
+
+infoBtn.addEventListener("click", function(){
+  if (prs === 0){
+    document.getElementById("mainText").style.display = "none";
+    prs++
+  }
+  else{
+    document.getElementById("mainText").style.display = "block";
+    prs--
+  }
+})
+
   if (!this.buttonsOn) {
     this.buttonsOn = true;
 
@@ -591,6 +605,7 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonAStar2").className = "navbar-inverse navbar-nav disabledA";
 
     document.getElementById("actualStartButton").style.backgroundColor = "rgb(185, 15, 15)";
+    
   }
 
 
@@ -610,3 +625,5 @@ window.onkeydown = (e) => {
 window.onkeyup = (e) => {
   newBoard.keyDown = false;
 }
+
+

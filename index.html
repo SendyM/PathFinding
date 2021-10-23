@@ -46,26 +46,38 @@
                <li id='adjustAverage'><a href="#">Average</a></li>
                <li id='adjustSlow'><a href="#">Slow</a></li>
              </ul>
+             <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">Walls&Weights
+              <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li id='pickWall'><a href="#">Wall</a></li>
+                <li id='pickW1'><a href="#">weight 1</a></li>
+                <li id='pickW2'><a href="#">weight 2</a></li>
+                <li id='pickW3'><a href="#">weight 3</a></li>
+              </ul>
+            </li>
+            <button id="InfoB" class="btn btn-default navbar-btn" type="button">Info</button>
            </li>
          </ul>
        </div>
      </nav>
    </div>
     <div id='mainGrid'>
-      <div id='mainText'>
+      <div class="infoBanner" id="mainText" style="display: none;">
         <ul>
-          <li>
-            <div class="start"></div>Start Node</li>
-          <li>
-            <div class="target"></div>Target Node</li>
-          <li>
-            <div class="unvisited"></div>Unvisited Node</li>
-          <li>
-            <div class="visited"></div>Visited Nodes</li>
-          <li>
-            <div class="shortest-path"></div>Shortest-path Node</li>
-          <li>
-            <div class="wall"></div>Wall Node</li>
+              <li>
+                <div class="start"></div>Start Node</li>
+              <li>
+                <div class="target"></div>Target Node</li>
+              <li>
+                <div class="unvisited"></div>Unvisited Node</li>
+              <li>
+                <div class="visited"></div>Visited Nodes</li>
+              <li>
+                <div class="shortest-path"></div>Shortest-path Node</li>
+              <li>
+                <div class="wall"></div>Wall Node</li>
+            </ul>
         </ul>
       </div>
       <div id="algorithmDescriptor">Pick an algorithm and visualize it!</div>
