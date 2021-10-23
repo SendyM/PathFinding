@@ -418,17 +418,17 @@ infoBtn.addEventListener("click", function(){
 
     document.getElementById("adjustFast").onclick = () => {
       this.speed = "fast";
-      document.getElementById("adjustSpeed").innerHTML = 'Speed: Fast<span class="caret"></span>';
+      document.getElementById("adjustSpeed").innerHTML = 'Rýchlosť: Fast<span class="caret"></span>';
     }
 
     document.getElementById("adjustAverage").onclick = () => {
       this.speed = "average";
-      document.getElementById("adjustSpeed").innerHTML = 'Speed: Average<span class="caret"></span>';
+      document.getElementById("adjustSpeed").innerHTML = 'Rýchlosť: Average<span class="caret"></span>';
     }
 
     document.getElementById("adjustSlow").onclick = () => {
       this.speed = "slow";
-      document.getElementById("adjustSpeed").innerHTML = 'Speed: Slow<span class="caret"></span>';
+      document.getElementById("adjustSpeed").innerHTML = 'Rýchlosť: Slow<span class="caret"></span>';
     }
 
     document.getElementById("startStairDemonstration").onclick = () => {
