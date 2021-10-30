@@ -1,7 +1,7 @@
 class GreedyAlgorithm extends WeightedAlgorithm {
 
   constructor() {
-    super("greedy", "Greedy Best-first Search");
+    super("greedy", "Greedy Best-first Search", "is <i><b>weighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
   }
 
   updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode, heuristic, boardArray) {
@@ -14,9 +14,5 @@ class GreedyAlgorithm extends WeightedAlgorithm {
       targetNode.direction = distance[2];
     }
   } 
-
-  getDescription() {
-    return `${this.label} is <i><b>weighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!`; 
-  }
 
 }

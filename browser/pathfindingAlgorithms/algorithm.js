@@ -1,10 +1,12 @@
 class Algorithm {
-  algoName = '(unknown)'
-  label = '???'
+  algoName = null
+  label = null
+  description = null
 
-  constructor(algoName, label) {
+  constructor(algoName, label, description) {
     this.algoName = algoName;
     this.label = label;
+    this.description = description
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
@@ -15,7 +17,7 @@ class Algorithm {
   // prida do 'neighbors' node ak nie je stena
   getNeighbor(id, nodes, boardArray, neighbors, x, y) {
     if (boardArray[x] && boardArray[x][y]) {
-      let potentialNeighbor = `${x.toString()}-${y.toString()}`
+      let potentialNeighbor = `${x}-${y}`
       if (nodes[potentialNeighbor].status !== "wall") {
         neighbors.push(potentialNeighbor);
       }
@@ -42,14 +44,6 @@ class Algorithm {
     let xChange = Math.abs(nodeOneCoordinates[0] - nodeTwoCoordinates[0]);
     let yChange = Math.abs(nodeOneCoordinates[1] - nodeTwoCoordinates[1]);
     return (xChange + yChange);
-  }
-
-  isWeighted() {
-    return true;
-  }
-
-  getDescription() {
-    return null;
   }
 
 }

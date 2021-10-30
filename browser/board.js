@@ -15,7 +15,7 @@ function Board(height, width) {
   this.previouslySwitchedNodeWeight = 0;
   this.keyDown = false;
   this.algoDone = false;
-  this.currentAlgorithm = new DijkstraAlgorithm();
+  this.currentAlgorithm = new AstarAlgorithm();
   this.currentHeuristic = null;
   this.buttonsOn = false;
   this.speed = "fast";
@@ -164,7 +164,7 @@ Board.prototype.changeNormalNode = function (currentNode) {
         "unvisited" : "wall";
       currentNode.weight = 0;
     }
-  } else if (this.keyDown === 87 && this.currentAlgorithm.isWeighted()) {
+  } else if (this.keyDown === 87) {
     if (!relevantStatuses.includes(currentNode.status)) {
       element.className = currentNode.weight !== 15 ?
         "unvisited weight" : "unvisited";
@@ -381,10 +381,7 @@ Board.prototype.resetHTMLNodes = function () {
 };
 
 Board.prototype.changeStartNodeImages = function () {
-  let description = this.currentAlgorithm.getDescription()
-  if (description) {
-    document.getElementById("algorithmDescriptor").innerHTML = description;
-  }
+  document.getElementById("algorithmDescriptor").innerHTML = this.currentAlgorithm.label + ": " + this.currentAlgorithm.description;
 };
 
 Board.prototype.toggleButtons = function () {
@@ -412,8 +409,10 @@ infoBtn.addEventListener("click", function(){
     document.getElementById("startButtonStart").onclick = () => {
       this.clearPath("clickedButton");
       this.toggleButtons();
-      let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray);
-      launchAnimations(this, success, "weighted");
+      if (this.currentAlgorithm) {
+        let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray);
+        launchAnimations(this, success, "weighted");
+      }
     }
 
     document.getElementById("adjustFast").onclick = () => {

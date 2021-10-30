@@ -1,6 +1,6 @@
 class WeightedAlgorithm extends Algorithm {
-  constructor(algoName, label) {
-    super(algoName, label);
+  constructor(algoName, label, description) {
+    super(algoName, label, description);
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
@@ -110,5 +110,3 @@ class WeightedAlgorithm extends Algorithm {
   }
 
 }
-
-

@@ -1,7 +1,7 @@
 class AstarAlgorithm extends WeightedAlgorithm {
 
   constructor() {
-    super("astar", "A* Algorithm");
+    super("astar", "A* Algorithm", "is <i><b>weighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
@@ -37,10 +37,6 @@ class AstarAlgorithm extends WeightedAlgorithm {
       targetNode.path = distance[1];
       targetNode.direction = distance[2];
     }
-  }
-
-  getDescription() {
-    return `${this.label} is <i><b>weighted</b></i> and <i><b>guarantees</b></i> the shortest path!`;
   }
 
 }

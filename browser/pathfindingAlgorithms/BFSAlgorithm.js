@@ -1,6 +1,6 @@
 class BFSAlgorithm extends Algorithm {
   constructor() {
-    super("bfs", "Breadth-first Search");
+    super("bfs", "Breadth-first Search", "is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
@@ -26,10 +26,6 @@ class BFSAlgorithm extends Algorithm {
       });
     }
     return false;
-  }
-
-  getDescription() {
-    return `${this.label} is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!`;
   }
 
 }
