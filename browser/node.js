@@ -1,4 +1,4 @@
-function Node(id, status) {
+function BoardNode(id, status) {
   this.id = id;
   this.status = status;
   this.previousNode = null;
