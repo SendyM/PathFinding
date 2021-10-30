@@ -16,7 +16,6 @@ function Board(height, width) {
   this.keyDown = false;
   this.algoDone = false;
   this.currentAlgorithm = new AstarAlgorithm();
-  this.currentHeuristic = null;
   this.buttonsOn = false;
   this.speed = "fast";
 }
@@ -91,14 +90,8 @@ Board.prototype.addEventListeners = function () {
             board.changeSpecialNode(currentNode);
             if (board.pressedNodeStatus === "target") {
               board.target = currentId;
-              if (board.algoDone) {
-                board.redoAlgorithm();
-              }
             } else if (board.pressedNodeStatus === "start") {
               board.start = currentId;
-              if (board.algoDone) {
-                board.redoAlgorithm();
-              }
             }
           } else if (board.mouseDown) {
             board.changeNormalNode(currentNode);
@@ -286,8 +279,10 @@ Board.prototype.clearPath = function (clickedButton) {
   document.getElementById("startButtonStart").onclick = () => {
     this.clearPath("clickedButton");
     this.toggleButtons();
-    let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray)
-    launchAnimations(this, success, "weighted");
+    if (this.currentAlgorithm) {
+      let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray)
+      launchAnimations(this, success, "weighted");
+    }
     this.algoDone = true;
   }
 
@@ -300,9 +295,6 @@ Board.prototype.clearPath = function (clickedButton) {
     currentNode.heuristicDistance = null;
     currentNode.direction = null;
     currentNode.storedDirection = null;
-    currentNode.otherpreviousNode = null;
-    currentNode.otherdistance = Infinity;
-    currentNode.otherdirection = null;
     let currentHTMLNode = document.getElementById(id);
     let relevantStatuses = ["wall", "start", "target"];
     if (!relevantStatuses.includes(currentNode.status) && currentNode.weight !== 15) {
@@ -356,17 +348,6 @@ Board.prototype.clearNodeStatuses = function () {
   })
 };
 
-Board.prototype.instantAlgorithm = function () {
-  let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray)
-  launchInstantAnimations(this, success, "weighted");
-  this.algoDone = true;
-};
-
-Board.prototype.redoAlgorithm = function () {
-  this.clearPath();
-  this.instantAlgorithm();
-};
-
 Board.prototype.reset = function () {
   this.nodes[this.start].status = "start";
   document.getElementById(this.start).className = "startTransparent";
@@ -381,7 +362,7 @@ Board.prototype.resetHTMLNodes = function () {
 };
 
 Board.prototype.changeStartNodeImages = function () {
-  document.getElementById("algorithmDescriptor").innerHTML = this.currentAlgorithm.label + ": " + this.currentAlgorithm.description;
+  document.getElementById("algorithmDescriptor").innerHTML = this.currentAlgorithm.label + ' ' + this.currentAlgorithm.description;
 };
 
 
@@ -594,7 +575,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("actualStartButton").style.backgroundColor = "rgb(185, 15, 15)";
     
   }
-
 
 }
 

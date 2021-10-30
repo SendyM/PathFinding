@@ -5,7 +5,7 @@ class GreedyAlgorithm extends WeightedAlgorithm {
   }
 
   updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode, heuristic, boardArray) {
-    let distance = getDistance(currentNode, targetNode);
+    let distance = this.getDistance(currentNode, targetNode);
     let distanceToCompare = targetNode.weight + distance[0] + this.manhattanDistance(targetNode, actualTargetNode);
     if (distanceToCompare < targetNode.distance) {
       targetNode.distance = distanceToCompare;
