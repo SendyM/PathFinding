@@ -79,9 +79,8 @@
 }
 
 #mainText > ul li {
-  display: inline-block;
+  position: absolute;
   list-style: none;
-  padding: 0 28px 0 0;
 }
 
 #actualStartButton {
@@ -139,13 +138,7 @@
 }
 
 #mainText div {
-  /*border: 1px solid rgb(12, 53, 71);*/
-  width: 25px;
-  height: 25px;
-  display: inline-block;
-  position: relative;
-  top: 0.35em;
-  margin: 0 0.42em;
+  position: absolute; 
 }
 
 #board {
@@ -335,8 +328,9 @@ p {
   border-radius: 4px;
 }
 .navbar-inverse {
-  background-color: #404040;
+  background-color: #747474;
 }
+.navbar
 .navbar-inverse .navbar-brand {
   color: #ffffff;
 }

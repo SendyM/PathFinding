@@ -43,7 +43,7 @@ Board.prototype.createGrid = function () {
       } else {
         newNodeClass = "unvisited";
       }
-      newNode = new Node(newNodeId, newNodeClass);
+      newNode = new BoardNode(newNodeId, newNodeClass);
       currentArrayRow.push(newNode);
       currentHTMLRow += `<td id="${newNodeId}" class="${newNodeClass}"></td>`;
       this.nodes[`${newNodeId}`] = newNode;
@@ -387,24 +387,12 @@ Board.prototype.changeStartNodeImages = function () {
   }
 };
 
+
 Board.prototype.toggleButtons = function () {
   document.getElementById("refreshButton").onclick = () => {
     window.location.reload(true);
   }
 
-const infoBtn = document.getElementById("InfoB")  
-let prs = 1
-
-infoBtn.addEventListener("click", function(){
-  if (prs === 0){
-    document.getElementById("mainText").style.display = "none";
-    prs++
-  }
-  else{
-    document.getElementById("mainText").style.display = "block";
-    prs--
-  }
-})
 
   if (!this.buttonsOn) {
     this.buttonsOn = true;
@@ -489,7 +477,7 @@ infoBtn.addEventListener("click", function(){
     document.getElementById("startButtonClearBoard").onclick = () => {
 
       let navbarHeight = document.getElementById("navbarDiv").clientHeight;
-      let textHeight = document.getElementById("mainText").clientHeight + document.getElementById("algorithmDescriptor").clientHeight;
+      let textHeight = document.getElementById("algorithmDescriptor").clientHeight;
       let height = Math.floor((document.documentElement.clientHeight - navbarHeight - textHeight) / 28);
       let width = Math.floor(document.documentElement.clientWidth / 25);
       let start = Math.floor(height / 2).toString() + "-" + Math.floor(width / 4).toString();
@@ -612,7 +600,7 @@ infoBtn.addEventListener("click", function(){
 }
 
 let navbarHeight = $("#navbarDiv").height();
-let textHeight = $("#mainText").height() + $("#algorithmDescriptor").height();
+let textHeight = $("#algorithmDescriptor").height();
 let height = Math.floor(($(document).height() - navbarHeight - textHeight) / 28);
 let width = Math.floor($(document).width() / 25);
 let newBoard = new Board(height, width)
@@ -625,5 +613,3 @@ window.onkeydown = (e) => {
 window.onkeyup = (e) => {
   newBoard.keyDown = false;
 }
-
-
