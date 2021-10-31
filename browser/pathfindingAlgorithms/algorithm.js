@@ -1,21 +1,28 @@
 class Algorithm {
-  algoName = null
   label = null
   description = null
 
-  constructor(algoName, label, description) {
-    this.algoName = algoName;
+  constructor(label, description) {
     this.label = label;
     this.description = description
   }
 
+  /**
+   * Spustenie algoritmu na vyhladanie cesty zo "start" do "target".
+   * @param nodes Zoznam vrcholov, v ktorom sa hlada cesta.
+   * @param start Zaciatocny vrchol
+   * @param target Koncovy vrchol
+   * @param nodesToAnimate Zoznam kde sa pridavaju vrcholy ktore treba animovat (teda cesta)
+   * @param boardArray Bludisko (dvojrozmerna matica) v ktorom sa hlada cesta
+   * @return true ak cesta bola najdena, inak false
+   */
   run(nodes, start, target, nodesToAnimate, boardArray) {
     // toto treba implementovat v konkretnej triede
     throw new Error("Not implemented: run")
   }
 
   // prida do 'neighbors' node ak nie je stena
-  getNeighbor(id, nodes, boardArray, neighbors, x, y) {
+  addNeighbor(id, nodes, boardArray, neighbors, x, y) {
     if (boardArray[x] && boardArray[x][y]) {
       let potentialNeighbor = `${x}-${y}`
       if (nodes[potentialNeighbor].status !== "wall") {
@@ -30,15 +37,20 @@ class Algorithm {
     let x = parseInt(coordinates[0]);
     let y = parseInt(coordinates[1]);
     let neighbors = [];
-    this.getNeighbor(id, nodes, boardArray, neighbors, x - 1, y)
-    this.getNeighbor(id, nodes, boardArray, neighbors, x, y - 1)
-    this.getNeighbor(id, nodes, boardArray, neighbors, x + 1, y)
-    this.getNeighbor(id, nodes, boardArray, neighbors, x, y + 1)
+    this.addNeighbor(id, nodes, boardArray, neighbors, x - 1, y)
+    this.addNeighbor(id, nodes, boardArray, neighbors, x, y - 1)
+    this.addNeighbor(id, nodes, boardArray, neighbors, x + 1, y)
+    this.addNeighbor(id, nodes, boardArray, neighbors, x, y + 1)
     return neighbors;
   }
 
-  // vzdialenost dvoch nodov v stvorcovej sieti
-  manhattanDistance(nodeOne, nodeTwo) {
+  /**
+   * Vzdialenost dvoch vrcholov v stvorcovej sieti
+   * @param nodeOne Prvy vrchol
+   * @param nodeDruhy Druhy vrchol
+   * @return Vzdialenost - nezaporne cislo
+   */
+  static manhattanDistance(nodeOne, nodeTwo) {
     let nodeOneCoordinates = nodeOne.id.split("-").map(ele => parseInt(ele));
     let nodeTwoCoordinates = nodeTwo.id.split("-").map(ele => parseInt(ele));
     let xChange = Math.abs(nodeOneCoordinates[0] - nodeTwoCoordinates[0]);

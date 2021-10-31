@@ -1,4 +1,4 @@
-function launchAnimations(board, success, type) {
+function launchAnimations(board, success) {
   let nodes = board.nodesToAnimate.slice(0);
   let speed = board.speed === "fast" ?
     0 : board.speed === "average" ?
@@ -12,7 +12,8 @@ function launchAnimations(board, success, type) {
           if (document.getElementById(board.target).className !== "visitedTargetNodeBlue") {
             document.getElementById(board.target).className = "visitedTargetNodeBlue";
           }
-          board.drawShortestPathTimeout(board.target, board.start, type);
+          board.drawShortestPathTimeout(board.target, board.start); // with animation
+          // board.drawShortestPath(board.target, board.start); // without animation
           board.shortestPathNodesToAnimate = [];
           board.reset();
           shortestNodes = board.shortestPathNodesToAnimate;

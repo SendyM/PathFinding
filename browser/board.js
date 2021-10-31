@@ -14,7 +14,6 @@ function Board(height, width) {
   this.previouslySwitchedNode = null;
   this.previouslySwitchedNodeWeight = 0;
   this.keyDown = false;
-  this.algoDone = false;
   this.currentAlgorithm = new AstarAlgorithm();
   this.buttonsOn = false;
   this.speed = "fast";
@@ -59,7 +58,7 @@ Board.prototype.addEventListeners = function () {
   for (let r = 0; r < board.height; r++) {
     for (let c = 0; c < board.width; c++) {
       let currentId = `${r}-${c}`;
-      let currentNode = board.getNode(currentId);
+      let currentNode = board.nodes[currentId]; //board.getNode(currentId);
       let currentElement = document.getElementById(currentId);
       currentElement.onmousedown = (e) => {
         e.preventDefault();
@@ -109,13 +108,6 @@ Board.prototype.addEventListeners = function () {
   }
 };
 
-Board.prototype.getNode = function (id) {
-  let coordinates = id.split("-");
-  let r = parseInt(coordinates[0]);
-  let c = parseInt(coordinates[1]);
-  return this.boardArray[r][c];
-};
-
 Board.prototype.changeSpecialNode = function (currentNode) {
   let element = document.getElementById(currentNode.id), previousElement;
   if (this.previouslySwitchedNode) previousElement = document.getElementById(this.previouslySwitchedNode.id);
@@ -132,10 +124,9 @@ Board.prototype.changeSpecialNode = function (currentNode) {
       this.previouslyPressedNodeStatus = currentNode.status;
       element.className = this.pressedNodeStatus;
       currentNode.status = this.pressedNodeStatus;
-
       currentNode.weight = 0;
     }
-  } else if (currentNode.status !== this.pressedNodeStatus && !this.algoDone) {
+  } else if (currentNode.status !== this.pressedNodeStatus) {
     this.previouslySwitchedNode.status = this.pressedNodeStatus;
     previousElement.className = this.pressedNodeStatus;
   } else if (currentNode.status === this.pressedNodeStatus) {
@@ -168,6 +159,7 @@ Board.prototype.changeNormalNode = function (currentNode) {
   }
 };
 
+// Vykreslenie najdenej cesty bez animacie
 Board.prototype.drawShortestPath = function (targetNodeId, startNodeId) {
   let currentNode;
   currentNode = this.nodes[this.nodes[targetNodeId].previousNode];
@@ -176,9 +168,11 @@ Board.prototype.drawShortestPath = function (targetNodeId, startNodeId) {
     document.getElementById(currentNode.id).className = `shortest-path`;
     currentNode = this.nodes[currentNode.previousNode];
   }
+  this.toggleButtons();
 };
 
-Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId, type) {
+// Vykreslenie najdenej cesty s animaciou
+Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId) {
   let board = this;
   let currentNode;
   let secondCurrentNode;
@@ -216,21 +210,17 @@ Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId, t
     if (currentNode.id !== board.start) {
       if (currentNode.id !== board.target || currentNode.id === board.target && isActualTarget) {
         let currentHTMLNode = document.getElementById(currentNode.id);
-        if (type === "unweighted") {
-          currentHTMLNode.className = "shortest-path-unweighted";
+        let direction = "direction";
+        if (currentNode[direction] === "up") {
+          currentHTMLNode.className = "shortest-path-up";
+        } else if (currentNode[direction] === "down") {
+          currentHTMLNode.className = "shortest-path-down";
+        } else if (currentNode[direction] === "right") {
+          currentHTMLNode.className = "shortest-path-right";
+        } else if (currentNode[direction] === "left") {
+          currentHTMLNode.className = "shortest-path-left";
         } else {
-          let direction = "direction";
-          if (currentNode[direction] === "up") {
-            currentHTMLNode.className = "shortest-path-up";
-          } else if (currentNode[direction] === "down") {
-            currentHTMLNode.className = "shortest-path-down";
-          } else if (currentNode[direction] === "right") {
-            currentHTMLNode.className = "shortest-path-right";
-          } else if (currentNode[direction] === "left") {
-            currentHTMLNode.className = "shortest-path-left";
-          } else {
-            currentHTMLNode.className = "shortest-path";
-          }
+          currentHTMLNode.className = "shortest-path";
         }
       }
     }
@@ -276,17 +266,6 @@ Board.prototype.clearPath = function (clickedButton) {
     document.getElementById(target.id).className = "target";
   }
 
-  document.getElementById("startButtonStart").onclick = () => {
-    this.clearPath("clickedButton");
-    this.toggleButtons();
-    if (this.currentAlgorithm) {
-      let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray)
-      launchAnimations(this, success, "weighted");
-    }
-    this.algoDone = true;
-  }
-
-  this.algoDone = false;
   Object.keys(this.nodes).forEach(id => {
     let currentNode = this.nodes[id];
     currentNode.previousNode = null;
@@ -371,7 +350,6 @@ Board.prototype.toggleButtons = function () {
     window.location.reload(true);
   }
 
-
   if (!this.buttonsOn) {
     this.buttonsOn = true;
 
@@ -380,7 +358,7 @@ Board.prototype.toggleButtons = function () {
       this.toggleButtons();
       if (this.currentAlgorithm) {
         let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray);
-        launchAnimations(this, success, "weighted");
+        launchAnimations(this, success);
       }
     }
 
@@ -406,7 +384,6 @@ Board.prototype.toggleButtons = function () {
       stairDemonstration(this);
       mazeGenerationAnimations(this);
     }
-
 
     document.getElementById("startButtonDijkstra").onclick = () => {
       document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize Dijkstra\'s!</button>'
@@ -497,7 +474,6 @@ Board.prototype.toggleButtons = function () {
       this.previouslySwitchedNode = null;
       this.previouslySwitchedNodeWeight = 0;
       this.keyDown = false;
-      this.algoDone = false;
     }
 
     document.getElementById("startButtonClearPath").onclick = () => {
@@ -573,7 +549,7 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonAStar2").className = "navbar-inverse navbar-nav disabledA";
 
     document.getElementById("actualStartButton").style.backgroundColor = "rgb(185, 15, 15)";
-    
+
   }
 
 }

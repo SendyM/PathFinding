@@ -1,6 +1,6 @@
 class BFSAlgorithm extends Algorithm {
   constructor() {
-    super("bfs", "Breadth-first Search", "is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
+    super("Breadth-first Search", "is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
