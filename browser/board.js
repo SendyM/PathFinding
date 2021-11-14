@@ -429,32 +429,32 @@ Board.prototype.toggleButtons = function () {
 
 
     document.getElementById("startButtonDijkstra").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize Dijkstra\'s!</button>'
+      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize Dijkstra\'s!</button>'
       this.currentAlgorithm = new DijkstraAlgorithm()
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonAStar2").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize A*!</button>'
+      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize A*!</button>'
       this.currentAlgorithm = new AstarAlgorithm()
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonGreedy").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize Greedy!</button>'
+      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize Greedy!</button>'
       this.currentAlgorithm = new GreedyAlgorithm()
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonBFS").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize BFS!</button>'
+      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize BFS!</button>'
       this.currentAlgorithm = new BFSAlgorithm()
       this.clearWeights();
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonDFS").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default navbar-btn" type="button">Visualize DFS!</button>'
+      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize DFS!</button>'
       this.currentAlgorithm = new DFSAlgorithm()
       this.clearWeights();
       this.changeStartNodeImages();
@@ -540,23 +540,6 @@ Board.prototype.toggleButtons = function () {
       mazeGenerationAnimations(this);
     }
 
-    document.getElementById("startButtonClearPath").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonClearBoard").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonCreateMazeOne").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonCreateMazeTwo").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonCreateMazeThree").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonCreateMazeFour").className = "navbar-inverse navbar-nav";
-    document.getElementById("startStairDemonstration").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonDFS").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonBFS").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonDijkstra").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonAStar2").className = "navbar-inverse navbar-nav";
-    document.getElementById("adjustFast").className = "navbar-inverse navbar-nav";
-    document.getElementById("adjustAverage").className = "navbar-inverse navbar-nav";
-    document.getElementById("adjustSlow").className = "navbar-inverse navbar-nav";
-    document.getElementById("startButtonGreedy").className = "navbar-inverse navbar-nav";
-    document.getElementById("actualStartButton").style.backgroundColor = "";
-
   } else {
     this.buttonsOn = false;
     document.getElementById("startButtonDFS").onclick = null;
@@ -575,24 +558,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("adjustFast").onclick = null;
     document.getElementById("adjustAverage").onclick = null;
     document.getElementById("adjustSlow").onclick = null;
-
-    document.getElementById("adjustFast").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("adjustAverage").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("adjustSlow").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonClearPath").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonClearBoard").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonCreateMazeOne").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonCreateMazeTwo").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonCreateMazeThree").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonCreateMazeFour").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startStairDemonstration").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonDFS").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonBFS").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonDijkstra").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonGreedy").className = "navbar-inverse navbar-nav disabledA";
-    document.getElementById("startButtonAStar2").className = "navbar-inverse navbar-nav disabledA";
-
-    document.getElementById("actualStartButton").style.backgroundColor = "rgb(185, 15, 15)";
     
   }
 

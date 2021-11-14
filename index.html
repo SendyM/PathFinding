@@ -1,98 +1,116 @@
 <html>
-  <head>
-    <title>Pathfinding Visualizer</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link id="cssTheme" rel="stylesheet" href="browser/styling/cssBasic.css"/>
-    <link rel="shortcut icon" type="image/png" href="browser/styling/c_icon.png"/>
-  </head>
-  <body>
-      <nav id="navbarDiv" class="navbar navbar-expand-lg navbar-inverse">
-        <div class="container-fluid">
-          <a id="refreshButton" class="navbar-brand" href="#">Pathfinding Visualizer</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Algoritmy
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li id='startButtonDijkstra'><a class="dropdown-item" href="#">Dijkstra's Algorithm</a></li>
-                  <li id='startButtonAStar2'><a class="dropdown-item" href="#">A* Search</a></li>
-                  <li id='startButtonGreedy'><a class="dropdown-item" href="#">Greedy Best-first Search</a></li>
-                  <li id='startButtonBFS'><a class="dropdown-item" href="#">Breadth-first Search</a></li>
-                  <li id='startButtonDFS'><a class="dropdown-item" href="#">Depth-first Search</a></li>
-                </ul>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink" role="button" 
-                aria-expanded="false" href="#">Bludiská & Paterny</a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li id='startButtonCreateMazeTwo'><a class="dropdown-item" href="#">Recursive Division</a></li>
-                  <li id='startButtonCreateMazeThree'><a class="dropdown-item" href="#">Recursive Division (vertical skew)</a></li>
-                  <li id='startButtonCreateMazeFour'><a class="dropdown-item" href="#">Recursive Division (horizontal skew)</a></li>
-                  <li id='startButtonCreateMazeOne'><a class="dropdown-item" href="#">Basic Random Maze</a></li>
-                  <li id='startStairDemonstration'><a class="dropdown-item" href="#">Simple Stair Pattern</a></li>
-                </ul>
-              </li>
-              <li id='startButtonStart' class="nav-item"><button id="actualStartButton" class="btn btn-default navbar-btn btn-wide"
-                  type="button">Visualizovať!</button></li>
-              <li id='startButtonClearBoard' class="nav-item"><a class="nav-link" href="#">Vymazať Boardu</a></li>
-              <li id='startButtonClearPath' class="nav-item"><a class="nav-link" href="#">Vymazať cestu</a></li>
-              <li class="nav-item dropdown">
-                <a id="adjustSpeed" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Rýchlosť: Fast
-                  <span class="caret"></span></a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <li id='adjustFast'><a class="dropdown-item" href="#">Fast</a></li>
-                  <li id='adjustAverage'><a class="dropdown-item" href="#">Average</a></li>
-                  <li id='adjustSlow'><a class="dropdown-item" href="#">Slow</a></li>
-                </ul>
-              <li class="nav-item dropdown" >
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Steny & Váhy
-                  <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  <li id='pickWall'><a class="dropdown-item" href="#">Wall</a></li>
-                  <li id='pickW1'><a class="dropdown-item" href="#">weight 1</a></li>
-                  <li id='pickW2'><a class="dropdown-item" href="#">weight 2</a></li>
-                  <li id='pickW3'><a class="dropdown-item" href="#">weight 3</a></li>
-                </ul>
-              </li>
-              </li>
+
+<head>
+  <title>Pathfinding Visualizer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link id="cssTheme" rel="stylesheet" href="browser/styling/cssBasic.css" />
+  <link rel="shortcut icon" type="image/png" href="browser/styling/c_icon.png" />
+</head>
+
+<body>
+  <nav id="navbarDiv" class="navbar navbar-expand-lg navbar-inverse p-3 mb-3 stroke ">
+    <div class="container-fluid">
+      <a id="refreshButton" class="navbar-brand" href="#">PATHFINDING VISUALIZER</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Algoritmy
+            </a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+              <li id='startButtonDijkstra'><a class="dropdown-item" href="#">Dijkstra's Algorithm</a></li>
+              <li id='startButtonAStar2'><a class="dropdown-item" href="#">A* Search</a></li>
+              <li id='startButtonGreedy'><a class="dropdown-item" href="#">Greedy Best-first Search</a></li>
+              <li id='startButtonBFS'><a class="dropdown-item" href="#">Breadth-first Search</a></li>
+              <li id='startButtonDFS'><a class="dropdown-item" href="#">Depth-first Search</a></li>
             </ul>
-          </div>
-        </div>
-      </nav>
-    
-    <div id='mainGrid'>
-      <div id="algorithmDescriptor">Pick an algorithm and visualize it!</div>
-      <table id='board'>
+          </li>
+          <li class="nav-item dropdown ">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink" role="button"
+              aria-expanded="false" href="#">Bludiská</a>
+            <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+              <li id='startButtonCreateMazeTwo'><a class="dropdown-item" href="#">Recursive Division</a></li>
+              <li id='startButtonCreateMazeThree'><a class="dropdown-item" href="#">Recursive Division (vertical
+                  skew)</a></li>
+              <li id='startButtonCreateMazeFour'><a class="dropdown-item" href="#">Recursive Division (horizontal
+                  skew)</a></li>
+              <li id='startButtonCreateMazeOne'><a class="dropdown-item" href="#">Basic Random Maze</a></li>
+              <li id='startStairDemonstration'><a class="dropdown-item" href="#">Simple Stair Pattern</a></li>
+            </ul>
+          </li>
+          <li id='startButtonStart' class="nav-item"><button id="actualStartButton"
+              class="btn btn-default btn-outline-warning" type="button">Visualizovať!</button></li>
+        </ul>
+        <div id="algorithmDescriptor">Pick an algorithm and visualize it!</div>
+      </div>
+      <button class="btn btn-default btn-outline-warning" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">+</button>
     </div>
-  </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src='browser/node.js'></script>
-  <script src='browser/animations/launchAnimations.js'></script>
-  <script src='browser/animations/launchInstantAnimations.js'></script>
-  <script src='browser/animations/mazeGenerationAnimations.js'></script>
-  <script src='browser/pathfindingAlgorithms/Algorithm.js'></script>
-  <script src='browser/pathfindingAlgorithms/WeightedAlgorithm.js'></script>
-  <script src='browser/pathfindingAlgorithms/AstarAlgorithm.js'></script>
-  <script src='browser/pathfindingAlgorithms/DijkstraAlgorithm.js'></script>
-  <script src='browser/pathfindingAlgorithms/GreedyAlgorithm.js'></script>
-  <script src='browser/pathfindingAlgorithms/BFSAlgorithm.js'></script>
-  <script src='browser/pathfindingAlgorithms/DFSAlgorithm.js'></script>
-  <script src='browser/mazeAlgorithms/recursiveDivisionMaze.js'></script>
-  <script src='browser/mazeAlgorithms/otherMaze.js'></script>
-  <script src='browser/mazeAlgorithms/otherOtherMaze.js'></script>
-  <script src='browser/mazeAlgorithms/stairDemonstration.js'></script>
-  <script src='browser/mazeAlgorithms/weightsDemonstration.js'></script>
-  <script src='browser/mazeAlgorithms/simpleDemonstration.js'></script>
-  <script src='browser/getDistance.js'></script>
+  </nav>
 
-  <script src='browser/board.js'></script>
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 id="offcanvasRightLabel">Toolbox</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <ul>
+        <li id='startButtonClearBoard' class="nav-item"><a class="nav-link" href="#">Vymazať plochu</a></li>
+        <li id='startButtonClearPath' class="nav-item"><a class="nav-link" href="#">Vymazať cestu</a></li>
+        <li class="nav-item dropdown">
+          <a id="adjustSpeed" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Rýchlosť: 100%
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+            <li id='adjustFast'><a class="dropdown-item" href="#">100%</a></li>
+            <li id='adjustAverage'><a class="dropdown-item" href="#">50%</a></li>
+            <li id='adjustSlow'><a class="dropdown-item" href="#">25%</a></li>
+          </ul>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Steny & Váhy
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
+            <li id='pickWall'><a class="dropdown-item" href="#">Wall</a></li>
+            <li id='pickW1'><a class="dropdown-item" href="#">weight 1</a></li>
+            <li id='pickW2'><a class="dropdown-item" href="#">weight 2</a></li>
+            <li id='pickW3'><a class="dropdown-item" href="#">weight 3</a></li>
+          </ul>
+        </li>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id='mainGrid' class="shadow">
+    <table id='board'>
+  </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src='browser/node.js'></script>
+<script src='browser/animations/launchAnimations.js'></script>
+<script src='browser/animations/launchInstantAnimations.js'></script>
+<script src='browser/animations/mazeGenerationAnimations.js'></script>
+<script src='browser/pathfindingAlgorithms/Algorithm.js'></script>
+<script src='browser/pathfindingAlgorithms/WeightedAlgorithm.js'></script>
+<script src='browser/pathfindingAlgorithms/AstarAlgorithm.js'></script>
+<script src='browser/pathfindingAlgorithms/DijkstraAlgorithm.js'></script>
+<script src='browser/pathfindingAlgorithms/GreedyAlgorithm.js'></script>
+<script src='browser/pathfindingAlgorithms/BFSAlgorithm.js'></script>
+<script src='browser/pathfindingAlgorithms/DFSAlgorithm.js'></script>
+<script src='browser/mazeAlgorithms/recursiveDivisionMaze.js'></script>
+<script src='browser/mazeAlgorithms/otherMaze.js'></script>
+<script src='browser/mazeAlgorithms/otherOtherMaze.js'></script>
+<script src='browser/mazeAlgorithms/stairDemonstration.js'></script>
+<script src='browser/mazeAlgorithms/weightsDemonstration.js'></script>
+<script src='browser/mazeAlgorithms/simpleDemonstration.js'></script>
+<script src='browser/getDistance.js'></script>
+
+<script src='browser/board.js'></script>
+
 </html>
-
