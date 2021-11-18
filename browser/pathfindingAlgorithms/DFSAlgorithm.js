@@ -1,6 +1,6 @@
 class DFSAlgorithm extends Algorithm {
   constructor() {
-    super("dfs", "Depth-first Search");
+    super("Depth-first Search", "is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
@@ -26,10 +26,6 @@ class DFSAlgorithm extends Algorithm {
       });
     }
     return false;
-  }
-
-  getDescription() {
-    return `${this.label} is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!`;
   }
 
 }

@@ -9,14 +9,4 @@ function BoardNode(id, status) {
   this.totalDistance = Infinity;
   this.heuristicDistance = null;
   this.weight = 0;
-
-  this.otherid = id;
-  this.otherstatus = status;
-  this.otherpreviousNode = null;
-  this.otherpath = null;
-  this.otherdirection = null;
-  this.otherstoredDirection = null;
-  this.otherdistance = Infinity;
-  this.otherweight = 0;
 }
-

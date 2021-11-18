@@ -14,9 +14,7 @@ function Board(height, width) {
   this.previouslySwitchedNode = null;
   this.previouslySwitchedNodeWeight = 0;
   this.keyDown = false;
-  this.algoDone = false;
-  this.currentAlgorithm = new DijkstraAlgorithm();
-  this.currentHeuristic = null;
+  this.currentAlgorithm = new AstarAlgorithm();
   this.buttonsOn = false;
   this.speed = "fast";
 }
@@ -60,7 +58,7 @@ Board.prototype.addEventListeners = function () {
   for (let r = 0; r < board.height; r++) {
     for (let c = 0; c < board.width; c++) {
       let currentId = `${r}-${c}`;
-      let currentNode = board.getNode(currentId);
+      let currentNode = board.nodes[currentId]; //board.getNode(currentId);
       let currentElement = document.getElementById(currentId);
       currentElement.onmousedown = (e) => {
         e.preventDefault();
@@ -91,14 +89,8 @@ Board.prototype.addEventListeners = function () {
             board.changeSpecialNode(currentNode);
             if (board.pressedNodeStatus === "target") {
               board.target = currentId;
-              if (board.algoDone) {
-                board.redoAlgorithm();
-              }
             } else if (board.pressedNodeStatus === "start") {
               board.start = currentId;
-              if (board.algoDone) {
-                board.redoAlgorithm();
-              }
             }
           } else if (board.mouseDown) {
             board.changeNormalNode(currentNode);
@@ -114,13 +106,6 @@ Board.prototype.addEventListeners = function () {
       }
     }
   }
-};
-
-Board.prototype.getNode = function (id) {
-  let coordinates = id.split("-");
-  let r = parseInt(coordinates[0]);
-  let c = parseInt(coordinates[1]);
-  return this.boardArray[r][c];
 };
 
 Board.prototype.changeSpecialNode = function (currentNode) {
@@ -139,10 +124,9 @@ Board.prototype.changeSpecialNode = function (currentNode) {
       this.previouslyPressedNodeStatus = currentNode.status;
       element.className = this.pressedNodeStatus;
       currentNode.status = this.pressedNodeStatus;
-
       currentNode.weight = 0;
     }
-  } else if (currentNode.status !== this.pressedNodeStatus && !this.algoDone) {
+  } else if (currentNode.status !== this.pressedNodeStatus) {
     this.previouslySwitchedNode.status = this.pressedNodeStatus;
     previousElement.className = this.pressedNodeStatus;
   } else if (currentNode.status === this.pressedNodeStatus) {
@@ -164,7 +148,7 @@ Board.prototype.changeNormalNode = function (currentNode) {
         "unvisited" : "wall";
       currentNode.weight = 0;
     }
-  } else if (this.keyDown === 87 && this.currentAlgorithm.isWeighted()) {
+  } else if (this.keyDown === 87) {
     if (!relevantStatuses.includes(currentNode.status)) {
       element.className = currentNode.weight !== 15 ?
         "unvisited weight" : "unvisited";
@@ -175,6 +159,7 @@ Board.prototype.changeNormalNode = function (currentNode) {
   }
 };
 
+// Vykreslenie najdenej cesty bez animacie
 Board.prototype.drawShortestPath = function (targetNodeId, startNodeId) {
   let currentNode;
   currentNode = this.nodes[this.nodes[targetNodeId].previousNode];
@@ -183,9 +168,11 @@ Board.prototype.drawShortestPath = function (targetNodeId, startNodeId) {
     document.getElementById(currentNode.id).className = `shortest-path`;
     currentNode = this.nodes[currentNode.previousNode];
   }
+  this.toggleButtons();
 };
 
-Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId, type) {
+// Vykreslenie najdenej cesty s animaciou
+Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId) {
   let board = this;
   let currentNode;
   let secondCurrentNode;
@@ -223,21 +210,17 @@ Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId, t
     if (currentNode.id !== board.start) {
       if (currentNode.id !== board.target || currentNode.id === board.target && isActualTarget) {
         let currentHTMLNode = document.getElementById(currentNode.id);
-        if (type === "unweighted") {
-          currentHTMLNode.className = "shortest-path-unweighted";
+        let direction = "direction";
+        if (currentNode[direction] === "up") {
+          currentHTMLNode.className = "shortest-path-up";
+        } else if (currentNode[direction] === "down") {
+          currentHTMLNode.className = "shortest-path-down";
+        } else if (currentNode[direction] === "right") {
+          currentHTMLNode.className = "shortest-path-right";
+        } else if (currentNode[direction] === "left") {
+          currentHTMLNode.className = "shortest-path-left";
         } else {
-          let direction = "direction";
-          if (currentNode[direction] === "up") {
-            currentHTMLNode.className = "shortest-path-up";
-          } else if (currentNode[direction] === "down") {
-            currentHTMLNode.className = "shortest-path-down";
-          } else if (currentNode[direction] === "right") {
-            currentHTMLNode.className = "shortest-path-right";
-          } else if (currentNode[direction] === "left") {
-            currentHTMLNode.className = "shortest-path-left";
-          } else {
-            currentHTMLNode.className = "shortest-path";
-          }
+          currentHTMLNode.className = "shortest-path";
         }
       }
     }
@@ -283,15 +266,6 @@ Board.prototype.clearPath = function (clickedButton) {
     document.getElementById(target.id).className = "target";
   }
 
-  document.getElementById("startButtonStart").onclick = () => {
-    this.clearPath("clickedButton");
-    this.toggleButtons();
-    let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray)
-    launchAnimations(this, success, "weighted");
-    this.algoDone = true;
-  }
-
-  this.algoDone = false;
   Object.keys(this.nodes).forEach(id => {
     let currentNode = this.nodes[id];
     currentNode.previousNode = null;
@@ -300,9 +274,6 @@ Board.prototype.clearPath = function (clickedButton) {
     currentNode.heuristicDistance = null;
     currentNode.direction = null;
     currentNode.storedDirection = null;
-    currentNode.otherpreviousNode = null;
-    currentNode.otherdistance = Infinity;
-    currentNode.otherdirection = null;
     let currentHTMLNode = document.getElementById(id);
     let relevantStatuses = ["wall", "start", "target"];
     if (!relevantStatuses.includes(currentNode.status) && currentNode.weight !== 15) {
@@ -356,17 +327,6 @@ Board.prototype.clearNodeStatuses = function () {
   })
 };
 
-Board.prototype.instantAlgorithm = function () {
-  let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray)
-  launchInstantAnimations(this, success, "weighted");
-  this.algoDone = true;
-};
-
-Board.prototype.redoAlgorithm = function () {
-  this.clearPath();
-  this.instantAlgorithm();
-};
-
 Board.prototype.reset = function () {
   this.nodes[this.start].status = "start";
   document.getElementById(this.start).className = "startTransparent";
@@ -381,10 +341,7 @@ Board.prototype.resetHTMLNodes = function () {
 };
 
 Board.prototype.changeStartNodeImages = function () {
-  let description = this.currentAlgorithm.getDescription()
-  if (description) {
-    document.getElementById("algorithmDescriptor").innerHTML = description;
-  }
+  document.getElementById("algorithmDescriptor").innerHTML = this.currentAlgorithm.label + ' ' + this.currentAlgorithm.description;
 };
 
 
@@ -393,15 +350,16 @@ Board.prototype.toggleButtons = function () {
     window.location.reload(true);
   }
 
-
   if (!this.buttonsOn) {
     this.buttonsOn = true;
 
     document.getElementById("startButtonStart").onclick = () => {
       this.clearPath("clickedButton");
       this.toggleButtons();
-      let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray);
-      launchAnimations(this, success, "weighted");
+      if (this.currentAlgorithm) {
+        let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray);
+        launchAnimations(this, success);
+      }
     }
 
     document.getElementById("adjustFast").onclick = () => {
@@ -426,7 +384,6 @@ Board.prototype.toggleButtons = function () {
       stairDemonstration(this);
       mazeGenerationAnimations(this);
     }
-
 
     document.getElementById("startButtonDijkstra").onclick = () => {
       document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize Dijkstra\'s!</button>'
@@ -517,7 +474,6 @@ Board.prototype.toggleButtons = function () {
       this.previouslySwitchedNode = null;
       this.previouslySwitchedNodeWeight = 0;
       this.keyDown = false;
-      this.algoDone = false;
     }
 
     document.getElementById("startButtonClearPath").onclick = () => {
@@ -560,7 +516,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("adjustSlow").onclick = null;
     
   }
-
 
 }
 
