@@ -49,7 +49,7 @@
         </ul>
         <div id="algorithmDescriptor">Pick an algorithm and visualize it!</div>
       </div>
-      <button class="btn btn-default btn-outline-warning" type="button" data-bs-toggle="offcanvas"
+      <button class="btn btn-lg btn-outline-warning" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">+</button>
     </div>
   </nav>
@@ -60,11 +60,12 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
+      <button id='startButtonClearBoard' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať plochu</a></button>
+      <button id='startButtonClearPath' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať cestu</a></button>
       <ul>
-        <li id='startButtonClearBoard' class="nav-item"><a class="nav-link" href="#">Vymazať plochu</a></li>
-        <li id='startButtonClearPath' class="nav-item"><a class="nav-link" href="#">Vymazať cestu</a></li>
+        
         <li class="nav-item dropdown">
-          <a id="adjustSpeed" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Rýchlosť: 100%
+          <a id="adjustSpeed" class="dropdown-toggle" data-bs-toggle="dropdown" href="#">Rýchlosť: 100%
             <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
             <li id='adjustFast'><a class="dropdown-item" href="#">100%</a></li>
@@ -72,7 +73,7 @@
             <li id='adjustSlow'><a class="dropdown-item" href="#">25%</a></li>
           </ul>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">Steny & Váhy
+          <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#">Steny & Váhy
             <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
             <li id='pickWall'><a class="dropdown-item" href="#">Wall</a></li>

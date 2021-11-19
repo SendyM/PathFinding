@@ -239,6 +239,7 @@ a.navbar-brand{
   font-weight: 400;
   color: #FF6F00;
   filter: saturate(0.5);
+  padding-right: 175px;
 }
 p {
   font-size: 18px;
@@ -283,7 +284,36 @@ p {
   outline: none;
   box-shadow: none;
 }
-
+.btn-lg{
+  width: 100px;
+}
+.btn-close{
+  background-color: #FF6F00;
+}
+.btn-tool{
+  margin-bottom: 5px;
+  margin-top: 10px;
+  margin-left: 24px;
+  font-size: 15;
+  width: 175px;
+  height: 60px;
+  text-align: center;
+  justify-content: center;
+}
+.offcanvas{
+  width: 450px;
+}
+li a:hover{
+  color: #FF6F00; 
+  filter: saturate(0.5);
+}
+#offcanvasRightLabel{
+  letter-spacing: 4px;
+  font-size: 23px;
+  font-weight: 400;
+  color: #FF6F00;
+  filter: saturate(0.5);
+}
 .dropdown-menu{
   background-color: #232425;
   color: #E4E7EB;
