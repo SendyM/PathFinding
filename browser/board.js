@@ -362,19 +362,20 @@ Board.prototype.toggleButtons = function () {
       }
     }
 
-    document.getElementById("adjustFast").onclick = () => {
-      this.speed = "fast";
-      document.getElementById("adjustSpeed").innerHTML = 'Rýchlosť: 100%<span class="caret"></span>';
+    document.getElementById("five").onclick = () => {
+      this.speed = "five";
     }
-
-    document.getElementById("adjustAverage").onclick = () => {
-      this.speed = "average";
-      document.getElementById("adjustSpeed").innerHTML = 'Rýchlosť: 50%<span class="caret"></span>';
+    document.getElementById("twentyfive").onclick = () => {
+      this.speed = "twentyfive";
     }
-
-    document.getElementById("adjustSlow").onclick = () => {
-      this.speed = "slow";
-      document.getElementById("adjustSpeed").innerHTML = 'Rýchlosť: 25%<span class="caret"></span>';
+    document.getElementById("fifty").onclick = () => {
+      this.speed = "fifty";
+    }
+    document.getElementById("seventyfive").onclick = () => {
+      this.speed = "seventyfive";
+    }
+    document.getElementById("hundred").onclick = () => {
+      this.speed = "hundred";
     }
 
     document.getElementById("startStairDemonstration").onclick = () => {

@@ -62,17 +62,27 @@
     <div class="offcanvas-body">
       <button id='startButtonClearBoard' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať plochu</a></button>
       <button id='startButtonClearPath' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať cestu</a></button>
+      <div class="container">
+        <input type="radio" class="radio" name="progress" value="five" id="five">
+        <label for="five" class="label">5%</label>
+      
+        <input type="radio" class="radio" name="progress" value="twentyfive" id="twentyfive">
+        <label for="twentyfive" class="label">25%</label>
+      
+        <input type="radio" class="radio" name="progress" value="fifty" id="fifty">
+        <label for="fifty" class="label">50%</label>
+      
+        <input type="radio" class="radio" name="progress" value="seventyfive" id="seventyfive" checked>
+        <label for="seventyfive" class="label">75%</label>
+      
+        <input type="radio" class="radio" name="progress" value="hundred" id="hundred">
+        <label for="hundred" class="label">100%</label>
+      
+        <div class="progress">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
       <ul>
-        
-        <li class="nav-item dropdown">
-          <a id="adjustSpeed" class="dropdown-toggle" data-bs-toggle="dropdown" href="#">Rýchlosť: 100%
-            <span class="caret"></span></a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
-            <li id='adjustFast'><a class="dropdown-item" href="#">100%</a></li>
-            <li id='adjustAverage'><a class="dropdown-item" href="#">50%</a></li>
-            <li id='adjustSlow'><a class="dropdown-item" href="#">25%</a></li>
-          </ul>
-        <li class="nav-item dropdown">
           <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#">Steny & Váhy
             <span class="caret"></span></a>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">

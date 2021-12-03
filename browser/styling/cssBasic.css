@@ -285,7 +285,7 @@ p {
   box-shadow: none;
 }
 .btn-lg{
-  width: 100px;
+  width: 80px;
 }
 .btn-close{
   background-color: #FF6F00;
@@ -318,7 +318,6 @@ li a:hover{
   background-color: #232425;
   color: #E4E7EB;
 }
- /*The container <div> - needed to position the dropdown content */
 #heuristics {
     position: relative;
     display: inline-block;
@@ -329,4 +328,67 @@ li a:hover{
 }
 .offcanvas-body a {
   color: whitesmoke;
+}
+
+.container {
+  margin: 60px auto;
+  width: 400px;
+  text-align: center;
+}
+
+.container .progress {
+  margin: 0 auto;
+  width: 400px;
+}
+
+.progress {
+  padding: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+}
+
+#five:checked ~ .progress > .progress-bar {
+  width: 5%;
+  background-color: #f63a0f;
+}
+
+#twentyfive:checked ~ .progress > .progress-bar {
+  width: 25%;
+  background-color: #f27011;
+}
+
+#fifty:checked ~ .progress > .progress-bar {
+  width: 50%;
+  background-color: #f2b01e;
+}
+
+#seventyfive:checked ~ .progress > .progress-bar {
+  width: 75%;
+  background-color: #f2d31b;
+}
+
+#hundred:checked ~ .progress > .progress-bar {
+  width: 100%;
+  background-color: #fffd94;
+}
+
+.radio {
+  display: none;
+}
+
+.label {
+  display: inline-block;
+  margin: 0 5px 20px;
+  padding: 3px 8px;
+  color: #aaa;
+  text-shadow: 0 1px black;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.radio:checked + .label {
+  color: white;
+  background: rgba(0, 0, 0, 0.25);
 }
