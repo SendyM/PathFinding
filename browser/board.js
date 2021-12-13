@@ -16,7 +16,8 @@ function Board(height, width) {
   this.keyDown = false;
   this.currentAlgorithm = new AstarAlgorithm();
   this.buttonsOn = false;
-  this.speed = "fast";
+  this.speed = "seventyfive";
+  this.block = "Wall";
 }
 
 Board.prototype.initialise = function () {
@@ -140,7 +141,7 @@ Board.prototype.changeNormalNode = function (currentNode) {
   let element = document.getElementById(currentNode.id);
   let relevantStatuses = ["start", "target"];
   let unweightedAlgorithms = ["dfs", "bfs"]
-  if (!this.keyDown) {
+  if (!this.keyDown && this.block === "Wall") {
     if (!relevantStatuses.includes(currentNode.status)) {
       element.className = currentNode.status !== "wall" ?
         "wall" : "unvisited";
@@ -148,7 +149,7 @@ Board.prototype.changeNormalNode = function (currentNode) {
         "unvisited" : "wall";
       currentNode.weight = 0;
     }
-  } else if (this.keyDown === 87) {
+  } else if (!this.keyDown && this.block === "Weight") {
     if (!relevantStatuses.includes(currentNode.status)) {
       element.className = currentNode.weight !== 15 ?
         "unvisited weight" : "unvisited";
@@ -344,7 +345,6 @@ Board.prototype.changeStartNodeImages = function () {
   document.getElementById("algorithmDescriptor").innerHTML = this.currentAlgorithm.label + ' ' + this.currentAlgorithm.description;
 };
 
-
 Board.prototype.toggleButtons = function () {
   document.getElementById("refreshButton").onclick = () => {
     window.location.reload(true);
@@ -376,6 +376,15 @@ Board.prototype.toggleButtons = function () {
     }
     document.getElementById("hundred").onclick = () => {
       this.speed = "hundred";
+    }
+
+    document.getElementById("Wall").onclick = () => {
+      this.block = "Wall";
+      console.log(this.block)
+    }
+    document.getElementById("Weight").onclick = () => {
+      this.block = "Weight";
+      console.log(this.block)
     }
 
     document.getElementById("startStairDemonstration").onclick = () => {
@@ -512,9 +521,6 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonClearPath").onclick = null;
     document.getElementById("startButtonClearBoard").onclick = null;
     document.getElementById("startButtonStart").onclick = null;
-    document.getElementById("adjustFast").onclick = null;
-    document.getElementById("adjustAverage").onclick = null;
-    document.getElementById("adjustSlow").onclick = null;
     
   }
 

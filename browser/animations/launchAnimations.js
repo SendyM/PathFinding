@@ -1,11 +1,11 @@
 function launchAnimations(board, success) {
   let nodes = board.nodesToAnimate.slice(0);
-  let speed = board.speed === "five" ? 500 : 
-  board.speed === "twentyfive" ? 325 : 
-  board.speed === "fifty" ? 200 : 
-  board.speed === "seventyfive" ? 50 :
-  board.speed === "hundred" ? 5 :
-  50;
+  let speed = board.speed === "five" ? 200 : 
+  board.speed === "twentyfive" ? 100 : 
+  board.speed === "fifty" ? 50 : 
+  board.speed === "seventyfive" ? 15 :
+  board.speed === "hundred" ? 3 :
+  15;
   let shortestNodes;
   function timeout(index) {
     setTimeout(function () {

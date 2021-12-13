@@ -82,18 +82,14 @@
           <div class="progress-bar"></div>
         </div>
       </div>
-      <ul>
-          <a class="dropdown-toggle" data-bs-toggle="dropdown" href="#">Steny & Váhy
-            <span class="caret"></span></a>
-          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
-            <li id='pickWall'><a class="dropdown-item" href="#">Wall</a></li>
-            <li id='pickW1'><a class="dropdown-item" href="#">weight 1</a></li>
-            <li id='pickW2'><a class="dropdown-item" href="#">weight 2</a></li>
-            <li id='pickW3'><a class="dropdown-item" href="#">weight 3</a></li>
-          </ul>
-        </li>
-        </li>
-      </ul>
+      <div class="container">
+        <input type="radio" class="radio" name="block" value="Wall" id="Wall" checked>
+        <label for="Wall" class="label">Wall</label>
+      
+        <input type="radio" class="radio" name="block" value="Weight" id="Weight">
+        <label for="Weight" class="label">Weight</label>
+       
+      </div>
     </div>
   </div>
   <div id='mainGrid' class="shadow">
