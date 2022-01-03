@@ -28,7 +28,7 @@ class AstarAlgorithm extends WeightedAlgorithm {
 
   updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode, heuristic, boardArray) {
     let distance = this.getDistance(currentNode, targetNode);
-    if (!targetNode.heuristicDistance) targetNode.heuristicDistance = Algorithm.manhattanDistance(targetNode, actualTargetNode);
+    if (!targetNode.heuristicDistance) targetNode.heuristicDistance = manhattanDistance(targetNode, actualTargetNode);
     let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];
     if (distanceToCompare < targetNode.distance) {
       targetNode.distance = distanceToCompare;

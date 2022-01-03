@@ -5,6 +5,7 @@ class WeightedAlgorithm extends Algorithm {
   }
 
   run(nodes, start, target, nodesToAnimate, boardArray) {
+    // basic argument validations
     if (!start || !target || start === target) {
       return false;
     }
@@ -22,7 +23,7 @@ class WeightedAlgorithm extends Algorithm {
       nodesToAnimate.push(currentNode);
       currentNode.status = "visited";
       if (currentNode.id === target) {
-        return "success!";
+        return true;
       }
       this.updateNeighbors(nodes, currentNode, boardArray, target, start);
     }
@@ -60,13 +61,9 @@ class WeightedAlgorithm extends Algorithm {
   }
 
   getDistance(nodeOne, nodeTwo) {
-    let currentCoordinates = nodeOne.id.split("-");
-    let targetCoordinates = nodeTwo.id.split("-");
-    let x1 = parseInt(currentCoordinates[0]);
-    let y1 = parseInt(currentCoordinates[1]);
-    let x2 = parseInt(targetCoordinates[0]);
-    let y2 = parseInt(targetCoordinates[1]);
-    if (x2 < x1) {
+    let c1 = id2coordinates(nodeOne.id);
+    let c2 = id2coordinates(nodeTwo.id);
+    if (c2.x < c1.x) {
       if (nodeOne.direction === "up") {
         return [1, ["f"], "up"];
       } else if (nodeOne.direction === "right") {
@@ -76,7 +73,7 @@ class WeightedAlgorithm extends Algorithm {
       } else if (nodeOne.direction === "down") {
         return [3, ["r", "r", "f"], "up"];
       }
-    } else if (x2 > x1) {
+    } else if (c2.x > c1.x) {
       if (nodeOne.direction === "up") {
         return [3, ["r", "r", "f"], "down"];
       } else if (nodeOne.direction === "right") {
@@ -87,7 +84,7 @@ class WeightedAlgorithm extends Algorithm {
         return [1, ["f"], "down"];
       }
     }
-    if (y2 < y1) {
+    if (c2.y < c1.y) {
       if (nodeOne.direction === "up") {
         return [2, ["l", "f"], "left"];
       } else if (nodeOne.direction === "right") {
@@ -97,7 +94,7 @@ class WeightedAlgorithm extends Algorithm {
       } else if (nodeOne.direction === "down") {
         return [2, ["r", "f"], "left"];
       }
-    } else if (y2 > y1) {
+    } else if (c2.y > c1.y) {
       if (nodeOne.direction === "up") {
         return [2, ["r", "f"], "right"];
       } else if (nodeOne.direction === "right") {

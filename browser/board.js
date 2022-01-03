@@ -32,20 +32,21 @@ Board.prototype.createGrid = function () {
     let currentArrayRow = [];
     let currentHTMLRow = `<tr id="row ${r}">`;
     for (let c = 0; c < this.width; c++) {
-      let newNodeId = `${r}-${c}`, newNodeClass, newNode;
+      let newNodeId = `${r}-${c}`
+      let newNodeClass;
       if (r === Math.floor(this.height / 2) && c === Math.floor(this.width / 4)) {
         newNodeClass = "start";
-        this.start = `${newNodeId}`;
+        this.start = newNodeId;
       } else if (r === Math.floor(this.height / 2) && c === Math.floor(3 * this.width / 4)) {
         newNodeClass = "target";
-        this.target = `${newNodeId}`;
+        this.target = newNodeId;
       } else {
         newNodeClass = "unvisited";
       }
-      newNode = new BoardNode(newNodeId, newNodeClass);
+      let newNode = new BoardNode(newNodeId, newNodeClass);
       currentArrayRow.push(newNode);
       currentHTMLRow += `<td id="${newNodeId}" class="${newNodeClass}"></td>`;
-      this.nodes[`${newNodeId}`] = newNode;
+      this.nodes[newNodeId] = newNode;
     }
     this.boardArray.push(currentArrayRow);
     tableHTML += `${currentHTMLRow}</tr>`;
@@ -221,7 +222,7 @@ Board.prototype.drawShortestPathTimeout = function (targetNodeId, startNodeId) {
         } else if (currentNode[direction] === "left") {
           currentHTMLNode.className = "shortest-path-left";
         } else {
-          currentHTMLNode.className = "shortest-path";
+          currentHTMLNode.className = "shortest-path-unweighted";
         }
       }
     }
@@ -269,12 +270,7 @@ Board.prototype.clearPath = function (clickedButton) {
 
   Object.keys(this.nodes).forEach(id => {
     let currentNode = this.nodes[id];
-    currentNode.previousNode = null;
-    currentNode.distance = Infinity;
-    currentNode.totalDistance = Infinity;
-    currentNode.heuristicDistance = null;
-    currentNode.direction = null;
-    currentNode.storedDirection = null;
+    currentNode.reset(currentNode.status)
     let currentHTMLNode = document.getElementById(id);
     let relevantStatuses = ["wall", "start", "target"];
     if (!relevantStatuses.includes(currentNode.status) && currentNode.weight !== 15) {
@@ -312,33 +308,10 @@ Board.prototype.clearWeights = function () {
   });
 }
 
-Board.prototype.clearNodeStatuses = function () {
-  Object.keys(this.nodes).forEach(id => {
-    let currentNode = this.nodes[id];
-    currentNode.previousNode = null;
-    currentNode.distance = Infinity;
-    currentNode.totalDistance = Infinity;
-    currentNode.heuristicDistance = null;
-    currentNode.storedDirection = currentNode.direction;
-    currentNode.direction = null;
-    let relevantStatuses = ["wall", "start", "target"];
-    if (!relevantStatuses.includes(currentNode.status)) {
-      currentNode.status = "unvisited";
-    }
-  })
-};
-
 Board.prototype.reset = function () {
   this.nodes[this.start].status = "start";
   document.getElementById(this.start).className = "startTransparent";
   this.nodes[this.target].status = "target";
-};
-
-Board.prototype.resetHTMLNodes = function () {
-  let start = document.getElementById(this.start);
-  let target = document.getElementById(this.target);
-  start.className = "start";
-  target.className = "target";
 };
 
 Board.prototype.changeStartNodeImages = function () {
@@ -362,29 +335,17 @@ Board.prototype.toggleButtons = function () {
       }
     }
 
-    document.getElementById("five").onclick = () => {
-      this.speed = "five";
-    }
-    document.getElementById("twentyfive").onclick = () => {
-      this.speed = "twentyfive";
-    }
-    document.getElementById("fifty").onclick = () => {
-      this.speed = "fifty";
-    }
-    document.getElementById("seventyfive").onclick = () => {
-      this.speed = "seventyfive";
-    }
-    document.getElementById("hundred").onclick = () => {
-      this.speed = "hundred";
-    }
+    ["five", "twentyfive", "fifty", "seventyfive", "hundred"].forEach(ele => {
+      document.getElementById(ele).onclick = () => {
+        this.speed = ele;
+      }
+    })
 
     document.getElementById("Wall").onclick = () => {
       this.block = "Wall";
-      console.log(this.block)
     }
     document.getElementById("Weight").onclick = () => {
       this.block = "Weight";
-      console.log(this.block)
     }
 
     document.getElementById("startStairDemonstration").onclick = () => {
@@ -455,24 +416,16 @@ Board.prototype.toggleButtons = function () {
         let currentHTMLNode = document.getElementById(id);
         if (id === start) {
           currentHTMLNode.className = "start";
-          currentNode.status = "start";
+          currentNode.reset("start");
         } else if (id === target) {
           currentHTMLNode.className = "target";
-          currentNode.status = "target"
+          currentNode.reset("target")
         } else {
           currentHTMLNode.className = "unvisited";
-          currentNode.status = "unvisited";
+          currentNode.reset("unvisited");
         }
-        currentNode.previousNode = null;
-        currentNode.path = null;
-        currentNode.direction = null;
-        currentNode.storedDirection = null;
-        currentNode.distance = Infinity;
-        currentNode.totalDistance = Infinity;
-        currentNode.heuristicDistance = null;
-        currentNode.weight = 0;
-
       });
+
       this.start = start;
       this.target = target;
       this.nodesToAnimate = [];
@@ -521,7 +474,7 @@ Board.prototype.toggleButtons = function () {
     document.getElementById("startButtonClearPath").onclick = null;
     document.getElementById("startButtonClearBoard").onclick = null;
     document.getElementById("startButtonStart").onclick = null;
-    
+
   }
 
 }
