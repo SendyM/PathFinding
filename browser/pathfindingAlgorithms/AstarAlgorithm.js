@@ -4,9 +4,9 @@ class AstarAlgorithm extends WeightedAlgorithm {
     super("A* Algorithm", "is <i><b>weighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
   }
 
-  run(nodes, start, target, nodesToAnimate, boardArray) {
+  run(nodes, start, target, nodesToAnimate) {
     nodes[start].totalDistance = 0;
-    return super.run(nodes, start, target, nodesToAnimate, boardArray)
+    return super.run(nodes, start, target, nodesToAnimate)
   }
 
   closestNode(nodes, unvisitedNodes) {
@@ -26,7 +26,7 @@ class AstarAlgorithm extends WeightedAlgorithm {
     return currentClosest;
   }
 
-  updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode, heuristic, boardArray) {
+  updateNode(currentNode, targetNode, actualTargetNode) {
     let distance = this.getDistance(currentNode, targetNode);
     if (!targetNode.heuristicDistance) targetNode.heuristicDistance = manhattanDistance(targetNode, actualTargetNode);
     let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];

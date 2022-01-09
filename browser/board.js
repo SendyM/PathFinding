@@ -3,7 +3,6 @@ function Board(height, width) {
   this.width = width;
   this.start = null;
   this.target = null;
-  this.boardArray = [];
   this.nodes = {};
   this.nodesToAnimate = [];
   this.shortestPathNodesToAnimate = [];
@@ -48,7 +47,6 @@ Board.prototype.createGrid = function () {
       currentHTMLRow += `<td id="${newNodeId}" class="${newNodeClass}"></td>`;
       this.nodes[newNodeId] = newNode;
     }
-    this.boardArray.push(currentArrayRow);
     tableHTML += `${currentHTMLRow}</tr>`;
   }
   let board = document.getElementById("board");
@@ -330,7 +328,7 @@ Board.prototype.toggleButtons = function () {
       this.clearPath("clickedButton");
       this.toggleButtons();
       if (this.currentAlgorithm) {
-        let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate, this.boardArray);
+        let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate);
         launchAnimations(this, success);
       }
     }

@@ -1,6 +1,11 @@
 class BoardNode {
   constructor(id, status) {
     this.id = id;
+    // koli optimalizacii si rovno vypocitame koordinaty...
+    let coordinates = id.split("-");
+    this.x = parseInt(coordinates[0]);
+    this.y = parseInt(coordinates[1]);
+    // ... a nastavime defaultove hodnoty
     this.reset(status)
   }
 
@@ -17,15 +22,10 @@ class BoardNode {
 }
 
 /**
-   * Skonvertuje id-cko (v tvare "x-y") na cielne koordinaty (objekt s ciselnymi properties x a y)
-   */
-function id2coordinates(id) {
-  let coordinates = id.split("-");
-  return { x: parseInt(coordinates[0]), y: parseInt(coordinates[1]) }
-}
-
-/**
-   * Skonvertuje (ciselne) koordinaty x,y na id-cko (v tvare "x-y")
+   * Skonvertuje (ciselne) koordinaty x,y vrcholu na id-cko (v tvare "x-y")
+   * @param x X-ova suradnica vrcholu
+   * @param y Y-ova suradnica vrcholu
+   * @returns ID-cko vrcholu
    */
 function coordinates2id(x, y) {
   return `${x}-${y}`
@@ -33,12 +33,10 @@ function coordinates2id(x, y) {
 
 /**
    * Vzdialenost dvoch vrcholov v stvorcovej sieti
-   * @param nodeOne Prvy vrchol
-   * @param nodeDruhy Druhy vrchol
+   * @param node1 Prvy vrchol
+   * @param node2 Druhy vrchol
    * @return Vzdialenost - nezaporne cislo
    */
-function manhattanDistance(nodeOne, nodeTwo) {
-  let nodeOneCoords = id2coordinates(nodeOne.id);
-  let nodeTwoCoords = id2coordinates(nodeTwo.id);
-  return Math.abs(nodeOneCoords.x - nodeTwoCoords.x) + Math.abs(nodeOneCoords.y - nodeTwoCoords.y);
+function manhattanDistance(node1, node2) {
+  return Math.abs(node1.x - node2.x) + Math.abs(node1.y - node2.y);
 }

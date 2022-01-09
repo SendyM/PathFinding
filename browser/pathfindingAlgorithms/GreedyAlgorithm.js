@@ -4,7 +4,7 @@ class GreedyAlgorithm extends WeightedAlgorithm {
     super("Greedy Best-first Search", "is <i><b>weighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
   }
 
-  updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode, heuristic, boardArray) {
+  updateNode(currentNode, targetNode, actualTargetNode) {
     let distance = this.getDistance(currentNode, targetNode);
     let distanceToCompare = targetNode.weight + distance[0] + manhattanDistance(targetNode, actualTargetNode);
     if (distanceToCompare < targetNode.distance) {

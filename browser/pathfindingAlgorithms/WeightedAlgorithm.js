@@ -4,7 +4,7 @@ class WeightedAlgorithm extends Algorithm {
     super(label, description);
   }
 
-  run(nodes, start, target, nodesToAnimate, boardArray) {
+  run(nodes, start, target, nodesToAnimate) {
     // basic argument validations
     if (!start || !target || start === target) {
       return false;
@@ -25,7 +25,7 @@ class WeightedAlgorithm extends Algorithm {
       if (currentNode.id === target) {
         return true;
       }
-      this.updateNeighbors(nodes, currentNode, boardArray, target, start);
+      this.updateNeighbors(nodes, currentNode, target, start);
     }
     return false;  // pre istotu
   }
@@ -42,14 +42,14 @@ class WeightedAlgorithm extends Algorithm {
     return currentClosest;
   }
 
-  updateNeighbors(nodes, node, boardArray, target, start) {
-    let neighbors = this.getNeighbors(node.id, nodes, boardArray);
+  updateNeighbors(nodes, node, target, start) {
+    let neighbors = this.getNeighbors(node.id, nodes);
     for (let neighbor of neighbors) {
-      this.updateNode(node, nodes[neighbor], nodes[target], name, nodes, nodes[start]);
+      this.updateNode(node, nodes[neighbor], nodes[target]);
     }
   }
 
-  updateNode(currentNode, targetNode, actualTargetNode, name, nodes, actualStartNode) {
+  updateNode(currentNode, targetNode, actualTargetNode) {
     let distance = this.getDistance(currentNode, targetNode);
     let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];
     if (distanceToCompare < targetNode.distance) {
@@ -60,48 +60,46 @@ class WeightedAlgorithm extends Algorithm {
     }
   }
 
-  getDistance(nodeOne, nodeTwo) {
-    let c1 = id2coordinates(nodeOne.id);
-    let c2 = id2coordinates(nodeTwo.id);
-    if (c2.x < c1.x) {
-      if (nodeOne.direction === "up") {
+  getDistance(node1, node2) {
+    if (node2.x < node1.x) {
+      if (node1.direction === "up") {
         return [1, ["f"], "up"];
-      } else if (nodeOne.direction === "right") {
+      } else if (node1.direction === "right") {
         return [2, ["l", "f"], "up"];
-      } else if (nodeOne.direction === "left") {
+      } else if (node1.direction === "left") {
         return [2, ["r", "f"], "up"];
-      } else if (nodeOne.direction === "down") {
+      } else if (node1.direction === "down") {
         return [3, ["r", "r", "f"], "up"];
       }
-    } else if (c2.x > c1.x) {
-      if (nodeOne.direction === "up") {
+    } else if (node2.x > node1.x) {
+      if (node1.direction === "up") {
         return [3, ["r", "r", "f"], "down"];
-      } else if (nodeOne.direction === "right") {
+      } else if (node1.direction === "right") {
         return [2, ["r", "f"], "down"];
-      } else if (nodeOne.direction === "left") {
+      } else if (node1.direction === "left") {
         return [2, ["l", "f"], "down"];
-      } else if (nodeOne.direction === "down") {
+      } else if (node1.direction === "down") {
         return [1, ["f"], "down"];
       }
     }
-    if (c2.y < c1.y) {
-      if (nodeOne.direction === "up") {
+    if (node2.y < node1.y) {
+      if (node1.direction === "up") {
         return [2, ["l", "f"], "left"];
-      } else if (nodeOne.direction === "right") {
+      } else if (node1.direction === "right") {
         return [3, ["l", "l", "f"], "left"];
-      } else if (nodeOne.direction === "left") {
+      } else if (node1.direction === "left") {
         return [1, ["f"], "left"];
-      } else if (nodeOne.direction === "down") {
+      } else if (node1.direction === "down") {
         return [2, ["r", "f"], "left"];
       }
-    } else if (c2.y > c1.y) {
-      if (nodeOne.direction === "up") {
+    } else if (node2.y > node1.y) {
+      if (node1.direction === "up") {
         return [2, ["r", "f"], "right"];
-      } else if (nodeOne.direction === "right") {
+      } else if (node1.direction === "right") {
         return [1, ["f"], "right"];
-      } else if (nodeOne.direction === "left") {
+      } else if (node1.direction === "left") {
         return [3, ["r", "r", "f"], "right"];
-      } else if (nodeOne.direction === "down") {
+      } else if (node1.direction === "down") {
         return [2, ["l", "f"], "right"];
       }
     }

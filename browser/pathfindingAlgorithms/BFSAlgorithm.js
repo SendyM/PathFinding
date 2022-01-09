@@ -1,16 +1,19 @@
+/** Konkretna implementacia algoritmu - prehladavanie do sirky (BFS=breadth-first search). */
 class BFSAlgorithm extends Algorithm {
+
   constructor() {
     super("Breadth-first Search", "is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
   }
 
-  run(nodes, start, target, nodesToAnimate, boardArray) {
+  run(nodes, start, target, nodesToAnimate) {
     // basic argument validations
-    if (!start || !target || start === target) {
+    if (!nodes || !start || !target) {
+      console.warn("Invalid arguments:", arguments)
       return false;
     }
     let nodeQueue = [nodes[start]];
     let exploredNodes = { start: true };
-    // depth-first algorithm - process nodes in the queue (first-in-first-out)
+    // breadth-first algorithm - process nodes in the queue (first-in-first-out)
     while (nodeQueue.length) {
       let currentNode = nodeQueue.shift();
       nodesToAnimate.push(currentNode);
@@ -20,7 +23,7 @@ class BFSAlgorithm extends Algorithm {
         return true;
       }
       // still not found, add all valid neighbours to the queue
-      let currentNeighbors = this.getNeighbors(currentNode.id, nodes, boardArray);
+      let currentNeighbors = this.getNeighbors(currentNode.id, nodes);
       currentNeighbors.forEach(neighbor => {
         // ignore nodes already processed
         if (!exploredNodes[neighbor]) {

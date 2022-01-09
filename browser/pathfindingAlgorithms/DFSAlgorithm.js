@@ -3,9 +3,9 @@ class DFSAlgorithm extends Algorithm {
     super("Depth-first Search", "is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
   }
 
-  run(nodes, start, target, nodesToAnimate, boardArray) {
+  run(nodes, start, target, nodesToAnimate) {
     // basic argument validations
-    if (!start || !target || start === target) {
+    if (!nodes || !start || !target || start === target) {
       return false;
     }
     let nodeStack = [nodes[start]];
@@ -21,7 +21,7 @@ class DFSAlgorithm extends Algorithm {
         return true;
       }
       // still not found, add all valid neighbours to the queue
-      let currentNeighbors = this.getNeighbors(currentNode.id, nodes, boardArray);
+      let currentNeighbors = this.getNeighbors(currentNode.id, nodes);
       currentNeighbors.forEach(neighbor => {
         // ignore nodes already processed
         if (!exploredNodes[neighbor]) {
