@@ -22,7 +22,7 @@ function launchAnimations(board, success) {
           shortestNodes = board.shortestPathNodesToAnimate;
           return;
         } else {
-          console.log("Failure.");
+          console.warn("Failure.");
           board.reset();
           board.toggleButtons();
           return;
@@ -39,13 +39,11 @@ function launchAnimations(board, success) {
     }, speed);
   }
 
-  function change(currentNode, previousNode, bidirectional) {
+  function change(currentNode, previousNode) {
     let currentHTMLNode = document.getElementById(currentNode.id);
     let relevantClassNames = ["start", "target", "visitedStartNodeBlue", "visitedStartNodePurple", "visitedTargetNodePurple", "visitedTargetNodeBlue"];
     if (!relevantClassNames.includes(currentHTMLNode.className)) {
-      currentHTMLNode.className = !bidirectional ?
-        "current" : currentNode.weight === 15 ?
-          "visited weight" : "visited";
+      currentHTMLNode.className = "current";
     }
     if (currentHTMLNode.className === "visitedStartNodePurple") {
       currentHTMLNode.className = "visitedStartNodeBlue";

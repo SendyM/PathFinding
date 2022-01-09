@@ -3,8 +3,8 @@ class BoardNode {
     this.id = id;
     // koli optimalizacii si rovno vypocitame koordinaty...
     let coordinates = id.split("-");
-    this.x = parseInt(coordinates[0]);
-    this.y = parseInt(coordinates[1]);
+    this.r = parseInt(coordinates[0]); // row
+    this.c = parseInt(coordinates[1]); // column
     // ... a nastavime defaultove hodnoty
     this.reset(status)
   }
@@ -22,13 +22,13 @@ class BoardNode {
 }
 
 /**
-   * Skonvertuje (ciselne) koordinaty x,y vrcholu na id-cko (v tvare "x-y")
-   * @param x X-ova suradnica vrcholu
-   * @param y Y-ova suradnica vrcholu
+   * Skonvertuje (ciselne) koordinaty r,c vrcholu na id-cko (v tvare "x-y")
+   * @param r Row (y-coordinate)
+   * @param c Column (x-coordinate)
    * @returns ID-cko vrcholu
    */
-function coordinates2id(x, y) {
-  return `${x}-${y}`
+function coordinates2id(r, c) {
+  return `${r}-${c}`
 }
 
 /**
@@ -38,5 +38,5 @@ function coordinates2id(x, y) {
    * @return Vzdialenost - nezaporne cislo
    */
 function manhattanDistance(node1, node2) {
-  return Math.abs(node1.x - node2.x) + Math.abs(node1.y - node2.y);
+  return Math.abs(node1.c - node2.c) + Math.abs(node1.r - node2.r);
 }

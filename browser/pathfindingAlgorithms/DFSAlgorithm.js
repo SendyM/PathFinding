@@ -3,7 +3,7 @@ class DFSAlgorithm extends Algorithm {
     super("Depth-first Search", "is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
   }
 
-  run(nodes, start, target, nodesToAnimate) {
+  runSpecific(nodes, start, target, nodesToAnimate) {
     // basic argument validations
     if (!nodes || !start || !target || start === target) {
       return false;

@@ -1,108 +1,101 @@
+/** Genericka (abstraktna) implementacia pathfinding algoritmu ktory respektuje vahy (weight). */
 class WeightedAlgorithm extends Algorithm {
 
   constructor(label, description) {
     super(label, description);
   }
 
-  run(nodes, start, target, nodesToAnimate) {
+  runSpecific(nodes, start, target, nodesToAnimate) {
     // basic argument validations
-    if (!start || !target || start === target) {
+    if (!nodes || !start || !target) {
+      console.warn("Invalid arguments:", arguments)
       return false;
     }
     nodes[start].distance = 0;
+    nodes[start].totalDistance = 0;
     nodes[start].direction = "right";
-    let unvisitedNodes = Object.keys(nodes);
+    // unvisited node IDs (except for nodes with walls etc)
+    let unvisitedNodes = Object.keys(nodes).filter(k => nodes[k].status !== "wall");
     while (unvisitedNodes.length) {
+      // find unvisited node with minumal distance (i.e. closest)
       let currentNode = this.closestNode(nodes, unvisitedNodes);
-      while (currentNode.status === "wall" && unvisitedNodes.length) {
-        currentNode = this.closestNode(nodes, unvisitedNodes)
-      }
-      if (currentNode.distance === Infinity) {
+      if (!currentNode || currentNode.distance === Infinity) {
+        // closest not found or inaccessible, no path can be found
         return false;
       }
       nodesToAnimate.push(currentNode);
       currentNode.status = "visited";
+      // are we there?
       if (currentNode.id === target) {
         return true;
       }
-      this.updateNeighbors(nodes, currentNode, target, start);
+      // update neighbour nodes (possibly) with better distance
+      let neighbors = this.getNeighbors(currentNode.id, nodes);
+      for (let neighbor of neighbors) {
+        this.updateNode(currentNode, nodes[neighbor], nodes[target]);
+      }
     }
     return false;  // pre istotu
   }
 
+  /** Return unvisited node with minimal "distance" attribute
+   * @param nodes All nodes (array)
+   * @param unvisitedNodes IDs of unvisited nodes.
+   * @returns Unvisited node with minimal "distance" attribute
+  */
   closestNode(nodes, unvisitedNodes) {
-    let currentClosest, index;
-    for (let i = 0; i < unvisitedNodes.length; i++) {
-      if (!currentClosest || currentClosest.distance > nodes[unvisitedNodes[i]].distance) {
-        currentClosest = nodes[unvisitedNodes[i]];
-        index = i;
-      }
-    }
-    unvisitedNodes.splice(index, 1);
-    return currentClosest;
+    throw new Error("Abstract method called");
   }
 
-  updateNeighbors(nodes, node, target, start) {
-    let neighbors = this.getNeighbors(node.id, nodes);
-    for (let neighbor of neighbors) {
-      this.updateNode(node, nodes[neighbor], nodes[target]);
-    }
+  /** Eventually update distance and other attributes of target node 
+   * @param currentNode Current node 
+   * @param targetNode Target (neighbor) node
+   * @param actualTargetNode Global target node
+   * @returns Nothing
+  */
+   updateNode(currentNode, targetNode, actualTargetNode) {
+    throw new Error("Abstract method called");
   }
 
-  updateNode(currentNode, targetNode, actualTargetNode) {
-    let distance = this.getDistance(currentNode, targetNode);
-    let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];
-    if (distanceToCompare < targetNode.distance) {
-      targetNode.distance = distanceToCompare;
-      targetNode.previousNode = currentNode.id;
-      targetNode.path = distance[1];
-      targetNode.direction = distance[2];
-    }
-  }
-
+  /** Returns distance, path and directon for moving from node1 to (neighbor) node2.  
+   * @param node1 Node1 (starting node)
+   * @param node2 Node2 (target node)
+   * @returns Distance (first element), path (second element) and arrow direction (third element)
+  */
   getDistance(node1, node2) {
-    if (node2.x < node1.x) {
-      if (node1.direction === "up") {
-        return [1, ["f"], "up"];
-      } else if (node1.direction === "right") {
-        return [2, ["l", "f"], "up"];
-      } else if (node1.direction === "left") {
-        return [2, ["r", "f"], "up"];
-      } else if (node1.direction === "down") {
-        return [3, ["r", "r", "f"], "up"];
-      }
-    } else if (node2.x > node1.x) {
-      if (node1.direction === "up") {
-        return [3, ["r", "r", "f"], "down"];
-      } else if (node1.direction === "right") {
-        return [2, ["r", "f"], "down"];
-      } else if (node1.direction === "left") {
-        return [2, ["l", "f"], "down"];
-      } else if (node1.direction === "down") {
-        return [1, ["f"], "down"];
-      }
+    if (node2.r < node1.r) { // this is node "above" node1
+      return {
+        "up": [1, ["f"], "up"],
+        "right": [2, ["l", "f"], "up"],
+        "left": [2, ["r", "f"], "up"],
+        "down": [3, ["r", "r", "f"], "up"],
+      }[node1.direction];
     }
-    if (node2.y < node1.y) {
-      if (node1.direction === "up") {
-        return [2, ["l", "f"], "left"];
-      } else if (node1.direction === "right") {
-        return [3, ["l", "l", "f"], "left"];
-      } else if (node1.direction === "left") {
-        return [1, ["f"], "left"];
-      } else if (node1.direction === "down") {
-        return [2, ["r", "f"], "left"];
-      }
-    } else if (node2.y > node1.y) {
-      if (node1.direction === "up") {
-        return [2, ["r", "f"], "right"];
-      } else if (node1.direction === "right") {
-        return [1, ["f"], "right"];
-      } else if (node1.direction === "left") {
-        return [3, ["r", "r", "f"], "right"];
-      } else if (node1.direction === "down") {
-        return [2, ["l", "f"], "right"];
-      }
+    if (node2.r > node1.r) { // this is node "below" node1
+      return {
+        "up": [3, ["r", "r", "f"], "down"],
+        "right": [2, ["r", "f"], "down"],
+        "left": [2, ["l", "f"], "down"],
+        "down": [1, ["f"], "down"],
+      }[node1.direction];
     }
+    if (node2.c < node1.c) { // this is node "left" of node1
+      return {
+        "up": [2, ["l", "f"], "left"],
+        "right": [3, ["l", "l", "f"], "left"],
+        "left": [1, ["f"], "left"],
+        "down": [2, ["r", "f"], "left"],
+      }[node1.direction];
+    }
+    if (node2.c > node1.c) { // this is node "right" of node1
+      return {
+        "up": [2, ["r", "f"], "right"],
+        "right": [1, ["f"], "right"],
+        "left": [3, ["r", "r", "f"], "right"],
+        "down": [2, ["l", "f"], "right"],
+      }[node1.direction];
+    }
+    return null; // just for case
   }
 
 }

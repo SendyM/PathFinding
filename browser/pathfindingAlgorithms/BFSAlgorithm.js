@@ -5,7 +5,7 @@ class BFSAlgorithm extends Algorithm {
     super("Breadth-first Search", "is <i><b>unweighted</b></i> and <i><b>guarantees</b></i> the shortest path!");
   }
 
-  run(nodes, start, target, nodesToAnimate) {
+  runSpecific(nodes, start, target, nodesToAnimate) {
     // basic argument validations
     if (!nodes || !start || !target) {
       console.warn("Invalid arguments:", arguments)
