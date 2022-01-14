@@ -1,3 +1,5 @@
+const myStats = document.getElementById('statsText');
+let column = 0;
 /** Abstraktna trieda - zaklad roznych implementacii algoritmov. */
 class Algorithm {
 
@@ -59,6 +61,7 @@ class AlgorithmStats {
   // ukonci pocitanie statistiky a zaloguje vysledok
   finish(nodes, startNodeId, targetNodeId, nodesToAnimate) {
     this.endTime = Date.now();
+    column += 1;
     let currentNode = nodes[nodes[targetNodeId].previousNode];
     while (currentNode.id !== startNodeId) {
       currentNode = nodes[currentNode.previousNode];
@@ -67,6 +70,14 @@ class AlgorithmStats {
     }
     this.steps = nodesToAnimate.length;
     console.info(this, "miliseconds:", this.endTime - this.startTime)
+    console.log(column)
+    if (this.steps != 0){
+      myStats.innerHTML +="["+column+"] "+ this.name+"; Kroky: "+this.steps+"; Dĺžka Cesty: "+this.pathLength+"; Čas: "+(this.endTime - this.startTime)+" ms<br>";
+    }
+    document.getElementById("clearStats").onclick = () => {
+      myStats.innerHTML = "";
+      column = 0;
+    }
   }
 
 }

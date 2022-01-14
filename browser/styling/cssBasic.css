@@ -148,34 +148,11 @@
 }
 
 .borderlessWeight {
-  background-image: url(weight.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation-name: unvisitedWeightAnimation;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
+  background-color: #848484;
 }
 
 .unvisited.weight{
-  /*border: 1px solid rgb(175, 216, 248);*/
-  background-image: url(weight.svg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  animation-name: unvisitedWeightAnimation;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: 1;
-  animation-fill-mode: forwards;
-  animation-play-state: running;
+  background-color: #848484;
 }
 .current{
   border: 1px solid ;
@@ -239,7 +216,7 @@ a.navbar-brand{
   font-weight: 400;
   color: #FF6F00;
   filter: saturate(0.5);
-  padding-right: 175px;
+  padding-right: 125px;
 }
 p {
   font-size: 18px;
@@ -290,10 +267,11 @@ p {
 .btn-close{
   background-color: #FF6F00;
 }
+
 .btn-tool{
   margin-bottom: 5px;
   margin-top: 10px;
-  margin-left: 24px;
+  margin-left: 33px;
   font-size: 15;
   width: 175px;
   height: 60px;
@@ -301,7 +279,7 @@ p {
   justify-content: center;
 }
 .offcanvas{
-  width: 450px;
+  width: 485px;
 }
 li a:hover{
   color: #FF6F00; 
@@ -331,7 +309,7 @@ li a:hover{
 }
 
 .container {
-  margin: 60px auto;
+  margin: 25px auto;
   width: 400px;
   text-align: center;
 }
@@ -391,4 +369,16 @@ li a:hover{
 .radio:checked + .label {
   color: white;
   background: rgba(0, 0, 0, 0.25);
+}
+.stats{
+  font-size: medium;
+  text-align: center;
+}
+.statTextHeader{
+  text-align: center;
+  letter-spacing: 4px;
+  font-size: 25px;
+  font-weight: 400;
+  color: #FF6F00;
+  filter: saturate(0.5);
 }
