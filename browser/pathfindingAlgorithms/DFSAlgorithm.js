@@ -1,6 +1,6 @@
 class DFSAlgorithm extends Algorithm {
   constructor() {
-    super("Depth-first Search", "is <i><b>unweighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
+    super("Depth-first Search", "je <i><b>neváhovaný</b></i> a <i><b>negarantuje</b></i> najkratšiu cestu!");
   }
 
   runSpecific(nodes, start, target, nodesToAnimate) {

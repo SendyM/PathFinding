@@ -1,7 +1,7 @@
 class GreedyAlgorithm extends WeightedAlgorithm {
 
   constructor() {
-    super("Greedy Best-first Search", "is <i><b>weighted</b></i> and <i><b>does not guarantee</b></i> the shortest path!");
+    super("Greedy Best-first Search", "je <i><b>váhovaný</b></i> a <i><b>negarantuje</b></i> najkratšiu cestu!");
   }
 
   closestNode(nodes, unvisitedNodes) {

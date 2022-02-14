@@ -1,7 +1,7 @@
 class DijkstraAlgorithm extends WeightedAlgorithm {
 
   constructor() {
-    super("Dijkstra's Algorithm", "is <i><b>weighted</b></i> and <i><b>guarantees</b></i> the shortest path!")
+    super("Dijkstra's Algorithmus", "je <i><b>váhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!")
   }
 
   closestNode(nodes, unvisitedNodes) {
