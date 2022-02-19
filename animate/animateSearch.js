@@ -1,4 +1,4 @@
-function launchAnimations(board, success) {
+function animateSearch(board, success) {
   let nodes = board.nodesToAnimate.slice(0);
   let speed = board.speed === "five" ? 200 : 
   board.speed === "twentyfive" ? 100 : 

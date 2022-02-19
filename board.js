@@ -331,7 +331,7 @@ Board.prototype.toggleButtons = function () {
         this.clearPath("clickedButton");
         this.toggleButtons();
         let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate);
-        launchAnimations(this, success);
+        animateSearch(this, success);
       }
     }
 
@@ -353,7 +353,7 @@ Board.prototype.toggleButtons = function () {
       this.clearPath("clickedButton");
       this.toggleButtons();
       stairDemonstration(this);
-      mazeGenerationAnimations(this);
+      animateMaze(this);
     }
 
     document.getElementById("startButtonDijkstra").onclick = () => {
@@ -394,7 +394,7 @@ Board.prototype.toggleButtons = function () {
       this.clearPath("clickedButton");
       this.toggleButtons();
       recursiveDivisionMaze(this, 2, this.height - 3, 2, this.width - 3, "horizontal", false, "wall");
-      mazeGenerationAnimations(this);
+      animateMaze(this);
     }
 
     document.getElementById("startButtonClearBoard").onclick = () => {
@@ -443,7 +443,7 @@ Board.prototype.toggleButtons = function () {
       this.clearPath("clickedButton");
       this.toggleButtons();
       otherMaze(this, 2, this.height - 3, 2, this.width - 3, "vertical", false);
-      mazeGenerationAnimations(this);
+      animateMaze(this);
     }
 
     document.getElementById("startButtonCreateMazeFour").onclick = () => {
@@ -451,7 +451,7 @@ Board.prototype.toggleButtons = function () {
       this.clearPath("clickedButton");
       this.toggleButtons();
       otherOtherMaze(this, 2, this.height - 3, 2, this.width - 3, "horizontal", false);
-      mazeGenerationAnimations(this);
+      animateMaze(this);
     }
 
   } else {

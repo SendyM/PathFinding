@@ -1,4 +1,4 @@
-function mazeGenerationAnimations(board) {
+function animateMaze(board) {
   let nodes = board.wallsToAnimate.slice(0);
   let speed = board.speed === "five" ? 150 : 
   board.speed === "twentyfive" ? 100 : 

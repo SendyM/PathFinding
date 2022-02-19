@@ -1,11 +1,11 @@
 .start{
-  background-image:url(triangletwo-right.svg);
+  background-image:url(arrow-right.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 .shortest-path-up{
-  background:url(triangletwo-up.svg);
+  background:url(arrow-up.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
@@ -13,21 +13,21 @@
 }
 
 .shortest-path-down{
-  background:url(triangletwo-down.svg);
+  background:url(arrow-down.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 .shortest-path-right{
-  background:url(triangletwo-right.svg);
+  background:url(arrow-right.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
 }
 .shortest-path-left{
-  background:url(triangletwo-left.svg);
+  background:url(arrow-left.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
@@ -36,7 +36,7 @@
 
 .startTransparent{
   opacity: 0.5;
-  background-image:url(triangletwo-right.svg);
+  background-image:url(arrow-right.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
@@ -44,7 +44,7 @@
 }
 
 .visitedStartNodeBlue {
-  background-image:url(triangletwo-right.svg);
+  background-image:url(arrow-right.svg);
   background-color: rgba(0, 190, 218, 0.75);
   background-position: center;
   background-repeat: no-repeat;
@@ -190,7 +190,7 @@
 
 .shortest-path-unweighted{
   /*border: 1px solid rgb(175, 216, 248);*/
-  background:url(spaceshiptwo-up.svg);
+  background:url(star.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
