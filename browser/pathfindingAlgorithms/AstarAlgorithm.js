@@ -1,7 +1,7 @@
 class AstarAlgorithm extends WeightedAlgorithm {
 
   constructor() {
-    super("A* Algorithmus", "je <i><b>váhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!");
+    super("A*", "je <i><b>váhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!");
   }
 
   closestNode(nodes, unvisitedNodes) {

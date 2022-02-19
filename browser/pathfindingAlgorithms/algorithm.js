@@ -20,7 +20,7 @@ class Algorithm {
   run(nodes, start, target, nodesToAnimate) {
     this.stats = new AlgorithmStats(this.label);
     let success = this.runSpecific(nodes, start, target, nodesToAnimate);
-    this.stats.finish(nodes, start, target, nodesToAnimate);
+    this.stats.finish(nodes, start, target, nodesToAnimate, success);
     return success;
   }
 
@@ -56,24 +56,26 @@ class AlgorithmStats {
     this.pathWeight = 0;
     this.startTime = Date.now();
     this.endTime = null;
+    this.success = false;
   }
 
   // ukonci pocitanie statistiky a zaloguje vysledok
-  finish(nodes, startNodeId, targetNodeId, nodesToAnimate) {
+  finish(nodes, startNodeId, targetNodeId, nodesToAnimate, success) {
     this.endTime = Date.now();
+    this.success = success;
     column += 1;
-    let currentNode = nodes[nodes[targetNodeId].previousNode];
-    while (currentNode.id !== startNodeId) {
-      currentNode = nodes[currentNode.previousNode];
-      this.pathLength += 1;
-      this.pathWeight += currentNode.weight;
+    if (success) {
+      let currentNode = nodes[nodes[targetNodeId].previousNode];
+      while (currentNode.id !== startNodeId) {
+        currentNode = nodes[currentNode.previousNode];
+        this.pathLength += 1;
+        this.pathWeight += currentNode.weight;
+      }
+      this.steps = nodesToAnimate.length;
     }
-    this.steps = nodesToAnimate.length;
     console.info(this, "miliseconds:", this.endTime - this.startTime)
     console.log(column)
-    if (this.steps != 0){
-      myStats.innerHTML +="["+column+"] "+ this.name+"; Kroky: "+this.steps+"; Dĺžka Cesty: "+this.pathLength+"; Čas: "+(this.endTime - this.startTime)+" ms<br>";
-    }
+    myStats.innerHTML +="["+column+"] "+ this.name+"; Kroky: "+this.steps+"; Dĺžka Cesty: "+this.pathLength+"; Čas: "+(this.endTime - this.startTime)+" ms<br>";
     document.getElementById("clearStats").onclick = () => {
       myStats.innerHTML = "";
       column = 0;

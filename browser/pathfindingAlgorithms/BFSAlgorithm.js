@@ -2,7 +2,7 @@
 class BFSAlgorithm extends Algorithm {
 
   constructor() {
-    super("Breadth-first Search", "je <i><b>neváhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!");
+    super("Breadth-first", "je <i><b>neváhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!");
   }
 
   runSpecific(nodes, start, target, nodesToAnimate) {

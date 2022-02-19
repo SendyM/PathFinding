@@ -13,7 +13,7 @@ function Board(height, width) {
   this.previouslySwitchedNode = null;
   this.previouslySwitchedNodeWeight = 0;
   this.keyDown = false;
-  this.currentAlgorithm = new AstarAlgorithm();
+  this.currentAlgorithm = null;
   this.buttonsOn = false;
   this.speed = "seventyfive";
   this.block = "Wall";
@@ -310,11 +310,13 @@ Board.prototype.reset = function () {
   this.nodes[this.start].status = "start";
   document.getElementById(this.start).className = "startTransparent";
   this.nodes[this.target].status = "target";
-};
+}
 
 Board.prototype.changeStartNodeImages = function () {
-  document.getElementById("algorithmDescriptor").innerHTML = this.currentAlgorithm.label + ' ' + this.currentAlgorithm.description;
-};
+  document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">' 
+    + "Spusť " + this.currentAlgorithm.label  + '</button>';
+  document.getElementById("algorithmDescriptor").innerHTML  = this.currentAlgorithm.label  + ' ' + this.currentAlgorithm.description;
+}
 
 Board.prototype.toggleButtons = function () {
   document.getElementById("refreshButton").onclick = () => {
@@ -325,9 +327,9 @@ Board.prototype.toggleButtons = function () {
     this.buttonsOn = true;
 
     document.getElementById("startButtonStart").onclick = () => {
-      this.clearPath("clickedButton");
-      this.toggleButtons();
       if (this.currentAlgorithm) {
+        this.clearPath("clickedButton");
+        this.toggleButtons();
         let success = this.currentAlgorithm.run(this.nodes, this.start, this.target, this.nodesToAnimate);
         launchAnimations(this, success);
       }
@@ -355,32 +357,27 @@ Board.prototype.toggleButtons = function () {
     }
 
     document.getElementById("startButtonDijkstra").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize Dijkstra\'s!</button>'
       this.currentAlgorithm = new DijkstraAlgorithm()
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonAStar2").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize A*!</button>'
       this.currentAlgorithm = new AstarAlgorithm()
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonGreedy").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize Greedy!</button>'
       this.currentAlgorithm = new GreedyAlgorithm()
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonBFS").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize BFS!</button>'
       this.currentAlgorithm = new BFSAlgorithm()
       this.clearWeights();
       this.changeStartNodeImages();
     }
 
     document.getElementById("startButtonDFS").onclick = () => {
-      document.getElementById("startButtonStart").innerHTML = '<button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Visualize DFS!</button>'
       this.currentAlgorithm = new DFSAlgorithm()
       this.clearWeights();
       this.changeStartNodeImages();
