@@ -1,3 +1,9 @@
+// vahy (ceny) za prechod do vrcholu:
+var WEIGHT_WALL = Infinity;  // nepriechodny vrchol = stena
+var WEIGHT_MID = 25;  // stredna vaha
+var WEIGHT_DEFAULT = 5;  // defaultova vaha 
+
+/** Board node. */
 class BoardNode {
   constructor(id, status) {
     this.id = id;
@@ -17,12 +23,12 @@ class BoardNode {
     this.distance = Infinity;
     this.totalDistance = Infinity;
     this.heuristicDistance = null;
-    this.weight = 0;
+    this.weight = WEIGHT_DEFAULT;
   }
 }
 
 /**
-   * Skonvertuje (ciselne) koordinaty r,c vrcholu na id-cko (v tvare "x-y")
+   * Skonvertuje (ciselne) koordinaty r,c vrcholu na id-cko (v tvare "x-y").
    * @param r Row (y-coordinate)
    * @param c Column (x-coordinate)
    * @returns ID-cko vrcholu
@@ -32,10 +38,10 @@ function coordinates2id(r, c) {
 }
 
 /**
-   * Vzdialenost dvoch vrcholov v stvorcovej sieti
+   * Vzdialenost dvoch vrcholov v stvorcovej sieti.
    * @param node1 Prvy vrchol
    * @param node2 Druhy vrchol
-   * @return Vzdialenost - nezaporne cislo
+   * @return Vzdialenost = sucet vzdialenosti v x-ovej a y-ovej osi (nezaporne cislo)
    */
 function manhattanDistance(node1, node2) {
   return Math.abs(node1.c - node2.c) + Math.abs(node1.r - node2.r);

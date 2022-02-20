@@ -2,7 +2,7 @@ function weightsDemonstration(board) {
   let currentIdX = board.height - 1;
   let currentIdY = 35;
   while (currentIdX > 5) {
-    let currentId = `${currentIdX}-${currentIdY}`;
+    let currentId = coordinates2id(currentIdX, currentIdY);
     let currentElement = document.getElementById(currentId);
     board.wallsToAnimate.push(currentElement);
     let currentNode = board.nodes[currentId];
@@ -12,7 +12,7 @@ function weightsDemonstration(board) {
   }
   for (let currentIdX = board.height - 2; currentIdX > board.height - 11; currentIdX--) {
     for (let currentIdY = 1; currentIdY < 35; currentIdY++) {
-      let currentId = `${currentIdX}-${currentIdY}`;
+      let currentId = coordinates2id(currentIdX, currentIdY);
       let currentElement = document.getElementById(currentId);
       board.wallsToAnimate.push(currentElement);
       let currentNode = board.nodes[currentId];

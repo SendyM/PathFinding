@@ -1,5 +1,11 @@
+
 /** Genericka (abstraktna) implementacia pathfinding algoritmu ktory respektuje vahy (weight). */
 class WeightedAlgorithm extends Algorithm {
+
+  // Konstanty pre ceny za otocenie (smerove vahy)
+  DIS_STRIGHT = 1; // rovno
+  DIS_TURN = 2; // vlavo/vpravo
+  DIS_REV = 3; // celom vzad
 
   constructor(label, description) {
     super(label, description);
@@ -53,46 +59,48 @@ class WeightedAlgorithm extends Algorithm {
    * @param actualTargetNode Global target node
    * @returns Nothing
   */
-   updateNode(currentNode, targetNode, actualTargetNode) {
+  updateNode(currentNode, targetNode, actualTargetNode) {
     throw new Error("Abstract method called");
   }
 
-  /** Returns distance, path and directon for moving from node1 to (neighbor) node2.  
-   * @param node1 Node1 (starting node)
-   * @param node2 Node2 (target node)
-   * @returns Distance (first element), path (second element) and arrow direction (third element)
+  /** Returns distance, path and directon for moving from node1 to (neighbor) node2. 
+   * Distance is 1 (stright direction, cheapest = preferred), 2 (turn left or right) or 3 (reverse direction).
+   * Path is sequence of directions, and direction is "up", "down", "left" or "right".
+   * @param node1 Starting node
+   * @param node2 Target node
+   * @returns List: [distance, path, direction]
   */
   getDistance(node1, node2) {
     if (node2.r < node1.r) { // this is node "above" node1
       return {
-        "up": [1, ["f"], "up"],
-        "right": [2, ["l", "f"], "up"],
-        "left": [2, ["r", "f"], "up"],
-        "down": [3, ["r", "r", "f"], "up"],
+        "up": [this.DIS_STRIGHT, ["f"], "up"],
+        "right": [this.DIS_TURN, ["l", "f"], "up"],
+        "left": [this.DIS_TURN, ["r", "f"], "up"],
+        "down": [this.DIS_REV, ["r", "r", "f"], "up"],
       }[node1.direction];
     }
     if (node2.r > node1.r) { // this is node "below" node1
       return {
-        "up": [3, ["r", "r", "f"], "down"],
-        "right": [2, ["r", "f"], "down"],
-        "left": [2, ["l", "f"], "down"],
-        "down": [1, ["f"], "down"],
+        "up": [this.DIS_REV, ["r", "r", "f"], "down"],
+        "right": [this.DIS_TURN, ["r", "f"], "down"],
+        "left": [this.DIS_TURN, ["l", "f"], "down"],
+        "down": [this.DIS_STRIGHT, ["f"], "down"],
       }[node1.direction];
     }
     if (node2.c < node1.c) { // this is node "left" of node1
       return {
-        "up": [2, ["l", "f"], "left"],
-        "right": [3, ["l", "l", "f"], "left"],
-        "left": [1, ["f"], "left"],
-        "down": [2, ["r", "f"], "left"],
+        "up": [this.DIS_TURN, ["l", "f"], "left"],
+        "right": [this.DIS_REV, ["l", "l", "f"], "left"],
+        "left": [this.DIS_STRIGHT, ["f"], "left"],
+        "down": [this.DIS_TURN, ["r", "f"], "left"],
       }[node1.direction];
     }
     if (node2.c > node1.c) { // this is node "right" of node1
       return {
-        "up": [2, ["r", "f"], "right"],
-        "right": [1, ["f"], "right"],
-        "left": [3, ["r", "r", "f"], "right"],
-        "down": [2, ["l", "f"], "right"],
+        "up": [this.DIS_TURN, ["r", "f"], "right"],
+        "right": [this.DIS_STRIGHT, ["f"], "right"],
+        "left": [this.DIS_REV, ["r", "r", "f"], "right"],
+        "down": [this.DIS_TURN, ["l", "f"], "right"],
       }[node1.direction];
     }
     return null; // just for case

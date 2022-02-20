@@ -3,7 +3,7 @@ function stairDemonstration(board) {
   let currentIdY = 0;
   let relevantStatuses = ["start", "target"];
   while (currentIdX > 0 && currentIdY < board.width) {
-    let currentId = `${currentIdX}-${currentIdY}`;
+    let currentId = coordinates2id(currentIdX, currentIdY);
     let currentNode = board.nodes[currentId];
     let currentHTMLNode = document.getElementById(currentId);
     if (!relevantStatuses.includes(currentNode.status)) {
@@ -14,7 +14,7 @@ function stairDemonstration(board) {
     currentIdY++;
   }
   while (currentIdX < board.height - 2 && currentIdY < board.width) {
-    let currentId = `${currentIdX}-${currentIdY}`;
+    let currentId = coordinates2id(currentIdX, currentIdY);
     let currentNode = board.nodes[currentId];
     let currentHTMLNode = document.getElementById(currentId);
     if (!relevantStatuses.includes(currentNode.status)) {
@@ -25,7 +25,7 @@ function stairDemonstration(board) {
     currentIdY++;
   }
   while (currentIdX > 0 && currentIdY < board.width - 1) {
-    let currentId = `${currentIdX}-${currentIdY}`;
+    let currentId = coordinates2id(currentIdX, currentIdY);
     let currentNode = board.nodes[currentId];
     let currentHTMLNode = document.getElementById(currentId);
     if (!relevantStatuses.includes(currentNode.status)) {

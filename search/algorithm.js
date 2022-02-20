@@ -1,5 +1,3 @@
-const myStats = document.getElementById('statsText');
-let column = 0;
 /** Abstraktna trieda - zaklad roznych implementacii algoritmov. */
 class Algorithm {
 
@@ -26,7 +24,7 @@ class Algorithm {
 
   // prida do 'neighbors' vrchol [r, c] ak taky existuje a nie je to stena
   addNeighbor(nodes, neighbors, r, c) {
-    let id = coordinates2id(r, c)
+    let id = coordinates2id(r, c);
     if (nodes[id] && nodes[id].status !== "wall") {
       neighbors.push(id);
     }
@@ -42,7 +40,6 @@ class Algorithm {
     this.addNeighbor(nodes, neighbors, node.r, node.c + 1)
     return neighbors;
   }
-
 }
 
 /** Pomocna trieda pre pocitanie statistik algoritmu. */
@@ -63,7 +60,6 @@ class AlgorithmStats {
   finish(nodes, startNodeId, targetNodeId, nodesToAnimate, success) {
     this.endTime = Date.now();
     this.success = success;
-    column += 1;
     if (success) {
       let currentNode = nodes[nodes[targetNodeId].previousNode];
       while (currentNode.id !== startNodeId) {
@@ -74,8 +70,15 @@ class AlgorithmStats {
       this.steps = nodesToAnimate.length;
     }
     console.info(this, "miliseconds:", this.endTime - this.startTime)
-    console.log(column)
-    myStats.innerHTML +="["+column+"] "+ this.name+"; Kroky: "+this.steps+"; Dĺžka Cesty: "+this.pathLength+"; Čas: "+(this.endTime - this.startTime)+" ms<br>";
+    //console.log(column)
+    // pridaj novu statistiku
+    var myStats = document.getElementById('statsText');
+    myStats.innerHTML += "<tr><td>"+this.name
+      +"</td><td>"+this.steps
+      +"</td><td>"+this.pathLength
+      +"</td><td>"+this.pathWeight
+      +"</td><td>"+(this.endTime - this.startTime)
+      +"</td></td>";
     document.getElementById("clearStats").onclick = () => {
       myStats.innerHTML = "";
       column = 0;

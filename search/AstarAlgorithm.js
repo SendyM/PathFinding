@@ -1,5 +1,7 @@
 class AstarAlgorithm extends WeightedAlgorithm {
 
+  HEURISTIC_WEIGHT_COEF = 5;
+
   constructor() {
     super("A*", "je <i><b>váhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!");
   }
@@ -24,7 +26,7 @@ class AstarAlgorithm extends WeightedAlgorithm {
   updateNode(currentNode, targetNode, actualTargetNode) {
     let distance = this.getDistance(currentNode, targetNode);
     if (!targetNode.heuristicDistance) {
-      targetNode.heuristicDistance = manhattanDistance(targetNode, actualTargetNode);
+      targetNode.heuristicDistance = this.HEURISTIC_WEIGHT_COEF * manhattanDistance(targetNode, actualTargetNode);
     }
     let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];
     if (distanceToCompare < targetNode.distance) {

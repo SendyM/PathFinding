@@ -42,7 +42,8 @@
               <li id='startStairDemonstration'><a class="dropdown-item" href="#">Simple Stair Pattern</a></li>
             </ul>
           </li>
-          <li id='startButtonStart' class="nav-item"><button id="actualStartButton" class="btn btn-default btn-outline-warning" type="button">Štart</button></li>
+          <li id='startButtonStart' class="nav-item"><button id="actualStartButton"
+              class="btn btn-default btn-outline-warning" type="button">Štart</button></li>
         </ul>
         <div id="algorithmDescriptor">Vyber algoritmus a stlač "Štart"!</div>
       </div>
@@ -57,7 +58,8 @@
       <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body">
-      <button id='startButtonClearBoard' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať plochu</a></button>
+      <button id='startButtonClearBoard' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať
+          plochu</a></button>
       <button id='startButtonClearPath' class="btn btn-tool btn-outline-warning"><a href="#">Vymazať cestu</a></button>
       <div class="container">
         <input type="radio" class="radio" name="progress" value="five" id="five">
@@ -81,10 +83,12 @@
       </div>
       <div class="container">
         <input type="radio" class="radio" name="block" value="Wall" id="Wall" checked>
-        <label for="Wall" class="label"><img src="style/232325.png" width="40" height="40" style="border:5px solid black"><br>Wall</label>
+        <label for="Wall" class="label"><img src="style/232325.png" width="40" height="40"
+            style="border:5px solid black"><br>Wall</label>
 
         <input type="radio" class="radio" name="block" value="Weight" id="Weight">
-        <label for="Weight" class="label"><img src="style/848484.png" width="40" height="40" style="border:5px solid black"><br>Weight</label>
+        <label for="Weight" class="label"><img src="style/848484.png" width="40" height="40"
+            style="border:5px solid black"><br>Weight</label>
 
       </div>
       <div class="container">
@@ -99,18 +103,26 @@
           </div>
         </div>
       </div>
-      <p id="statsText" class="stats"></p>
-
+      <table id="statsText" class="stats">
+        <tr>
+          <th>Meno</th>
+          <th>Kroky</th>
+          <th>Dĺžka</th>
+          <th>Cena</th>
+          <th>Čas(ms)</th>
+        </tr>
+      </table>
     </div>
   </div>
   <div id='mainGrid' class="shadow">
     <table id='board'>
   </div>
 </body>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-  crossorigin="anonymous">
-</script>
+  integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+  </script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src='node.js'></script>
 <script src='animate/animateSearch.js'></script>
@@ -127,7 +139,6 @@
 <script src='maze/otherOtherMaze.js'></script>
 <script src='maze/stairDemonstration.js'></script>
 <script src='maze/weightsDemonstration.js'></script>
-
 <script src='board.js'></script>
 
 </html>
