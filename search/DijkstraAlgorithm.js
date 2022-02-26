@@ -1,7 +1,7 @@
 class DijkstraAlgorithm extends WeightedAlgorithm {
 
   constructor() {
-    super("Dijkstra", "je <i><b>váhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!")
+    super("Dijkstra", "je <i><b>váhovaný</b></i> a <i><b>garantuje</b></i> najkratšiu cestu!", 0)
   }
 
   closestNode(nodes, unvisitedNodes) {
@@ -18,9 +18,9 @@ class DijkstraAlgorithm extends WeightedAlgorithm {
 
   updateNode(currentNode, targetNode, actualTargetNode) {
     let distance = this.getDistance(currentNode, targetNode);
-    let distanceToCompare = currentNode.distance + targetNode.weight + distance[0];
-    if (distanceToCompare < targetNode.distance) {
-      targetNode.distance = distanceToCompare;
+    let d = currentNode.distance + targetNode.weight + distance[0];
+    if (d < targetNode.distance) {
+      targetNode.distance = d;
       targetNode.previousNode = currentNode.id;
       targetNode.path = distance[1];
       targetNode.direction = distance[2];

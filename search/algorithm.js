@@ -61,7 +61,7 @@ class AlgorithmStats {
     this.endTime = Date.now();
     this.success = success;
     if (success) {
-      let currentNode = nodes[nodes[targetNodeId].previousNode];
+      let currentNode = nodes[targetNodeId];
       while (currentNode.id !== startNodeId) {
         currentNode = nodes[currentNode.previousNode];
         this.pathLength += 1;
@@ -70,15 +70,16 @@ class AlgorithmStats {
       this.steps = nodesToAnimate.length;
     }
     console.info(this, "miliseconds:", this.endTime - this.startTime)
+    
     //console.log(column)
     // pridaj novu statistiku
-    var myStats = document.getElementById('statsText');
-    myStats.innerHTML += "<tr><td>"+this.name
-      +"</td><td>"+this.steps
-      +"</td><td>"+this.pathLength
-      +"</td><td>"+this.pathWeight
-      +"</td><td>"+(this.endTime - this.startTime)
-      +"</td></td>";
+    let myStats = document.getElementById('statsText');
+    myStats.innerHTML += "<tr><td>" + this.name
+      + "</td><td>" + this.steps
+      + "</td><td>" + this.pathLength
+      + "</td><td>" + this.pathWeight
+      + "</td><td>" + (this.endTime - this.startTime)
+      + "</td></td>";
     document.getElementById("clearStats").onclick = () => {
       myStats.innerHTML = "";
       column = 0;

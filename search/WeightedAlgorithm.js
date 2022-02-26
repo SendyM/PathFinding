@@ -4,10 +4,10 @@ class WeightedAlgorithm extends Algorithm {
 
   // Konstanty pre ceny za otocenie (smerove vahy)
   DIS_STRIGHT = 1; // rovno
-  DIS_TURN = 2; // vlavo/vpravo
-  DIS_REV = 3; // celom vzad
+  DIS_TURN = 1; // vlavo/vpravo
+  DIS_REV = 1; // celom vzad
 
-  constructor(label, description) {
+  constructor(label, description, w) {
     super(label, description);
   }
 
@@ -19,12 +19,16 @@ class WeightedAlgorithm extends Algorithm {
     }
     nodes[start].distance = 0;
     nodes[start].totalDistance = 0;
-    nodes[start].direction = "right";
+    nodes[start].direction = "up";
     // unvisited node IDs (except for nodes with walls etc)
     let unvisitedNodes = Object.keys(nodes).filter(k => nodes[k].status !== "wall");
     while (unvisitedNodes.length) {
       // find unvisited node with minumal distance (i.e. closest)
       let currentNode = this.closestNode(nodes, unvisitedNodes);
+      // A* ?
+      while (currentNode.status === "wall" && unvisitedNodes.length) {
+        currentNode = closestNode(nodes, unvisitedNodes)
+      }
       if (!currentNode || currentNode.distance === Infinity) {
         // closest not found or inaccessible, no path can be found
         return false;

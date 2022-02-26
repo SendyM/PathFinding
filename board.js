@@ -38,7 +38,7 @@ class Board {
         if (r === halfHeight && c === quarterWidth) {
           newNodeClass = "start";
           this.start = newNodeId;
-        } else if (r === halfHeight && c === 3*quarterWidth) {
+        } else if (r === halfHeight && c === 3 * quarterWidth) {
           newNodeClass = "target";
           this.target = newNodeId;
         }
@@ -147,7 +147,7 @@ class Board {
     } else if (this.block === "Weight") {
       if (!relevantStatuses.includes(currentNode.status)) {
         element.className = currentNode.weight !== 15 ? "unvisited weight" : "unvisited";
-        currentNode.weight = element.className !== "unvisited weight" ?  0 : 15;
+        currentNode.weight = element.className !== "unvisited weight" ? 0 : 15;
         currentNode.status = "unvisited";
       }
     }
