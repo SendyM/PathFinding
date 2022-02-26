@@ -82,7 +82,6 @@ class AlgorithmStats {
       + "</td></td>";
     document.getElementById("clearStats").onclick = () => {
       myStats.innerHTML = "";
-      column = 0;
     }
   }
 

@@ -2,13 +2,9 @@
 /** Genericka (abstraktna) implementacia pathfinding algoritmu ktory respektuje vahy (weight). */
 class WeightedAlgorithm extends Algorithm {
 
-  // Konstanty pre ceny za otocenie (smerove vahy)
-  DIS_STRIGHT = 1; // rovno
-  DIS_TURN = 1; // vlavo/vpravo
-  DIS_REV = 1; // celom vzad
-
   constructor(label, description, w) {
     super(label, description);
+    this.w = w;
   }
 
   runSpecific(nodes, start, target, nodesToAnimate) {
@@ -17,8 +13,8 @@ class WeightedAlgorithm extends Algorithm {
       console.warn("Invalid arguments:", arguments)
       return false;
     }
-    nodes[start].distance = 0;
-    nodes[start].totalDistance = 0;
+    nodes[start].g = 0;
+    nodes[start].f = 0;
     nodes[start].direction = "up";
     // unvisited node IDs (except for nodes with walls etc)
     let unvisitedNodes = Object.keys(nodes).filter(k => nodes[k].status !== "wall");
@@ -29,7 +25,7 @@ class WeightedAlgorithm extends Algorithm {
       while (currentNode.status === "wall" && unvisitedNodes.length) {
         currentNode = closestNode(nodes, unvisitedNodes)
       }
-      if (!currentNode || currentNode.distance === Infinity) {
+      if (!currentNode || currentNode.g === Infinity) {
         // closest not found or inaccessible, no path can be found
         return false;
       }
@@ -54,7 +50,16 @@ class WeightedAlgorithm extends Algorithm {
    * @returns Unvisited node with minimal "distance" attribute
   */
   closestNode(nodes, unvisitedNodes) {
-    throw new Error("Abstract method called");
+    let closest, closest_index;
+    for (let i = 0; i < unvisitedNodes.length; i++) {
+      if (!closest || closest.f > nodes[unvisitedNodes[i]].f) {
+        closest = nodes[unvisitedNodes[i]];
+        closest_index = i;
+      }
+    }
+    unvisitedNodes.splice(closest_index, 1);
+    console.log("closest=" + closest.id + ", f=" + closest.f + ", g:" + closest.g + ", h:" + closest.h)
+    return closest;
   }
 
   /** Eventually update distance and other attributes of target node 
@@ -64,48 +69,44 @@ class WeightedAlgorithm extends Algorithm {
    * @returns Nothing
   */
   updateNode(currentNode, targetNode, actualTargetNode) {
-    throw new Error("Abstract method called");
+    let d = currentNode.g + currentNode.weight;
+    if (d < targetNode.g) {
+      targetNode.g = d;
+      if (this.w && !targetNode.h) {
+        targetNode.h = manhattanDistance(targetNode, actualTargetNode);
+      }
+      if (this.w == Infinity) {
+        // Greedy
+        targetNode.f = targetNode.h;
+      } else if (this.w > 0) {
+        // A* (Astar)
+        targetNode.f = targetNode.g + this.w * targetNode.h;
+      } else {
+        // Dijkstra
+        targetNode.f = targetNode.g;
+      }
+      targetNode.previousNode = currentNode.id;
+      targetNode.direction = this.getDirection(currentNode, targetNode);
+    }
   }
 
-  /** Returns distance, path and directon for moving from node1 to (neighbor) node2. 
-   * Distance is 1 (stright direction, cheapest = preferred), 2 (turn left or right) or 3 (reverse direction).
-   * Path is sequence of directions, and direction is "up", "down", "left" or "right".
+  /** Returns directon for moving from node1 to (neighbor) node2. 
    * @param node1 Starting node
    * @param node2 Target node
-   * @returns List: [distance, path, direction]
+   * @returns Direction
   */
-  getDistance(node1, node2) {
-    if (node2.r < node1.r) { // this is node "above" node1
-      return {
-        "up": [this.DIS_STRIGHT, ["f"], "up"],
-        "right": [this.DIS_TURN, ["l", "f"], "up"],
-        "left": [this.DIS_TURN, ["r", "f"], "up"],
-        "down": [this.DIS_REV, ["r", "r", "f"], "up"],
-      }[node1.direction];
+  getDirection(node1, node2) {
+    if (node2.r < node1.r) {
+      return "up";
     }
-    if (node2.r > node1.r) { // this is node "below" node1
-      return {
-        "up": [this.DIS_REV, ["r", "r", "f"], "down"],
-        "right": [this.DIS_TURN, ["r", "f"], "down"],
-        "left": [this.DIS_TURN, ["l", "f"], "down"],
-        "down": [this.DIS_STRIGHT, ["f"], "down"],
-      }[node1.direction];
+    if (node2.r > node1.r) {
+      return "down";
     }
-    if (node2.c < node1.c) { // this is node "left" of node1
-      return {
-        "up": [this.DIS_TURN, ["l", "f"], "left"],
-        "right": [this.DIS_REV, ["l", "l", "f"], "left"],
-        "left": [this.DIS_STRIGHT, ["f"], "left"],
-        "down": [this.DIS_TURN, ["r", "f"], "left"],
-      }[node1.direction];
+    if (node2.c < node1.c) {
+      return "left";
     }
-    if (node2.c > node1.c) { // this is node "right" of node1
-      return {
-        "up": [this.DIS_TURN, ["r", "f"], "right"],
-        "right": [this.DIS_STRIGHT, ["f"], "right"],
-        "left": [this.DIS_REV, ["r", "r", "f"], "right"],
-        "down": [this.DIS_TURN, ["l", "f"], "right"],
-      }[node1.direction];
+    if (node2.c > node1.c) {
+      return "right";
     }
     return null; // just for case
   }

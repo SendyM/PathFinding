@@ -18,11 +18,10 @@ class BoardNode {
   reset(status) {
     this.status = status;
     this.previousNode = null;
-    this.path = null;
     this.direction = null;
-    this.distance = Infinity;
-    this.totalDistance = Infinity;
-    this.heuristicDistance = null;
+    this.f = Infinity;
+    this.g = Infinity;
+    this.h = 0;
     this.weight = WEIGHT_DEFAULT;
   }
 }

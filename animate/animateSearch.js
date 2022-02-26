@@ -1,11 +1,14 @@
+var SPEED_MAP = {
+  "five": 200,
+  "twentyfive": 100,
+  "fifty": 50,
+  "seventyfive": 15,
+  "hundred": 3,
+}
+
 function animateSearch(board, success) {
   let nodes = board.nodesToAnimate.slice(0);
-  let speed = board.speed === "five" ? 200 : 
-  board.speed === "twentyfive" ? 100 : 
-  board.speed === "fifty" ? 50 : 
-  board.speed === "seventyfive" ? 15 :
-  board.speed === "hundred" ? 3 :
-  15;
+  let speed = SPEED_MAP[board.speed];
   let shortestNodes;
   function timeout(index) {
     setTimeout(function () {
@@ -15,8 +18,7 @@ function animateSearch(board, success) {
           if (document.getElementById(board.target).className !== "visitedTargetNodeBlue") {
             document.getElementById(board.target).className = "visitedTargetNodeBlue";
           }
-          board.drawShortestPathTimeout(board.target, board.start); // with animation
-          // board.drawShortestPath(board.target, board.start); // without animation
+          drawShortestPathTimeout(board); // with animation
           board.shortestPathNodesToAnimate = [];
           board.reset();
           shortestNodes = board.shortestPathNodesToAnimate;
@@ -59,3 +61,59 @@ function animateSearch(board, success) {
   timeout(0);
 
 };
+
+/** Vykreslenie najdenej cesty s animaciou. */
+function drawShortestPathTimeout(board) {
+  let currentNode;
+  let secondCurrentNode;
+  let currentNodesToAnimate;
+
+  currentNode = board.nodes[board.nodes[board.target].previousNode];
+  currentNodesToAnimate = [];
+  while (currentNode.id !== board.start) {
+    currentNodesToAnimate.unshift(currentNode);
+    currentNode = board.nodes[currentNode.previousNode];
+  }
+
+  timeout(0);
+
+  function timeout(index) {
+    if (!currentNodesToAnimate.length) currentNodesToAnimate.push(board.nodes[board.start]);
+    setTimeout(function () {
+      if (index === 0) {
+        shortestPathChange(currentNodesToAnimate[index]);
+      } else if (index < currentNodesToAnimate.length) {
+        shortestPathChange(currentNodesToAnimate[index], currentNodesToAnimate[index - 1]);
+      } else if (index === currentNodesToAnimate.length) {
+        shortestPathChange(board.nodes[board.target], currentNodesToAnimate[index - 1], "isActualTarget");
+      }
+      if (index > currentNodesToAnimate.length) {
+        board.toggleButtons();
+        return;
+      }
+      timeout(index + 1);
+    }, 40)
+  }
+
+  function shortestPathChange(currentNode, previousNode, isActualTarget) {
+    if (currentNode.id !== board.start) {
+      if (currentNode.id !== board.target || currentNode.id === board.target && isActualTarget) {
+        let currentHTMLNode = document.getElementById(currentNode.id);
+        if (currentNode.direction) {
+          currentHTMLNode.className = "shortest-path-" + currentNode.direction;
+        } else {
+          currentHTMLNode.className = "shortest-path-unweighted";
+        }
+      }
+    }
+    if (previousNode) {
+      if (previousNode.id !== board.target && previousNode.id !== board.start) {
+        let previousHTMLNode = document.getElementById(previousNode.id);
+        previousHTMLNode.className = previousNode.weight === 15 ? "shortest-path weight" : "shortest-path";
+      }
+    } else {
+      let element = document.getElementById(board.start);
+      element.className = "startTransparent";
+    }
+  }
+}
