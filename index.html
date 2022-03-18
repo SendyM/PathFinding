@@ -23,8 +23,8 @@
               data-bs-toggle="dropdown" aria-expanded="false">Algoritmy</a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
               <li id='startButtonDijkstra'><a class="dropdown-item" href="#">Dijkstra's Search</a></li>
-              <li id='startButtonAStar2'><a class="dropdown-item" href="#">A* Search</a></li>
-              <li id='startButtonGreedy'><a class="dropdown-item" href="#">Greedy Best-first Search</a></li>
+              <li id='startButtonAStar'><a class="dropdown-item" href="#">A* Search</a></li>
+              <li id='startButtonGreedy'><a class="dropdown-item" href="#">Greedy Search</a></li>
               <li id='startButtonBFS'><a class="dropdown-item" href="#">Breadth-first Search</a></li>
               <li id='startButtonDFS'><a class="dropdown-item" href="#">Depth-first Search</a></li>
             </ul>
@@ -33,13 +33,9 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" id="navbarDropdownMenuLink" role="button"
               aria-expanded="false" href="#">Bludiská</a>
             <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownMenuLink">
-              <li id='startButtonCreateMazeTwo'><a class="dropdown-item" href="#">Recursive Division</a></li>
-              <li id='startButtonCreateMazeThree'><a class="dropdown-item" href="#">Recursive Division (vertical
-                  skew)</a></li>
-              <li id='startButtonCreateMazeFour'><a class="dropdown-item" href="#">Recursive Division (horizontal
-                  skew)</a></li>
-              <li id='startButtonCreateMazeOne'><a class="dropdown-item" href="#">Basic Random Maze</a></li>
-              <li id='startStairDemonstration'><a class="dropdown-item" href="#">Simple Stair Pattern</a></li>
+              <li id='startButtonBasicRandomMaze'><a class="dropdown-item" href="#">Basic Random Maze</a></li>
+              <li id='startButtonRecursiveMaze'><a class="dropdown-item" href="#">Recursive Maze</a></li>
+              <li id='startStairDemonstration'><a class="dropdown-item" href="#">Simple Stair Maze</a></li>
             </ul>
           </li>
           <li id='startButtonStart' class="nav-item"><button id="actualStartButton"
@@ -103,25 +99,19 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col">
-          </div>
-          <div class="col">
-            <table id="statsText" class="stats">
-              <tr>
-                <th>Meno</th>
-                <th>Kroky</th>
-                <th>Dĺžka</th>
-                <th>Cena</th>
-                <th>Čas(ms)</th>
-              </tr>
-            </table>
-          </div>
-          <div class="col">
-          </div>
-        </div>
-      </div>
+      <table class="stats">
+        <thead>
+          <tr>
+            <th>Meno</th>
+            <th>Kroky</th>
+            <th>Dĺžka</th>
+            <th>Cena</th>
+            <th>Čas(ms)</th>
+          </tr>
+        </thead>
+        <tbody id="statsText">
+        </tbody>
+      </table>
     </div>
   </div>
   <div id='mainGrid' class="shadow">
@@ -145,8 +135,6 @@
 <script src='search/BFSAlgorithm.js'></script>
 <script src='search/DFSAlgorithm.js'></script>
 <script src='maze/recursiveDivisionMaze.js'></script>
-<script src='maze/otherMaze.js'></script>
-<script src='maze/otherOtherMaze.js'></script>
 <script src='maze/stairDemonstration.js'></script>
 <script src='maze/weightsDemonstration.js'></script>
 <script src='board.js'></script>
