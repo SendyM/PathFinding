@@ -2,10 +2,10 @@ function animateSearch(board, success) {
   let nodes = board.nodesToAnimate.slice(0);
   let speed = board.speed === "five" ? 200 : 
   board.speed === "twentyfive" ? 100 : 
-  board.speed === "fifty" ? 50 : 
-  board.speed === "seventyfive" ? 15 :
-  board.speed === "hundred" ? 3 :
-  15;
+  board.speed === "fifty" ? 40 : 
+  board.speed === "seventyfive" ? 10 :
+  board.speed === "hundred" ? 0 :
+  10;
   let shortestNodes;
   function timeout(index) {
     setTimeout(function () {

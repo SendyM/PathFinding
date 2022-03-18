@@ -2,10 +2,10 @@ function animateMaze(board) {
   let nodes = board.wallsToAnimate.slice(0);
   let speed = board.speed === "five" ? 150 : 
   board.speed === "twentyfive" ? 100 : 
-  board.speed === "fifty" ? 50 : 
-  board.speed === "seventyfive" ? 15 :
-  board.speed === "hundred" ? 3 :
-  15;
+  board.speed === "fifty" ? 40 : 
+  board.speed === "seventyfive" ? 9 :
+  board.speed === "hundred" ? 0 :
+  9;
   function timeout(index) {
     setTimeout(function () {
         if (index === nodes.length){
