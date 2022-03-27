@@ -1,7 +1,7 @@
 // vahy (ceny) za prechod do vrcholu:
 var WEIGHT_WALL = Infinity;  // nepriechodny vrchol = stena
-var WEIGHT_MID = 5;  // stredna vaha
-var WEIGHT_DEFAULT = 1;  // defaultova (zakladna) vaha 
+var WEIGHT_MID = 5;  // stredna vaha (cena)
+var WEIGHT_DEFAULT = 1;  // zakladna vaha (cena)
 
 /** Board node. */
 class BoardNode {

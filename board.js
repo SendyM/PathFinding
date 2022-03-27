@@ -142,10 +142,16 @@ class Board {
       let random = Math.random();
       let currentHTMLNode = document.getElementById(node);
       let relevantClassNames = ["start", "target"]
-      if (random < 0.25 && !relevantClassNames.includes(currentHTMLNode.className)) {
-        currentHTMLNode.className = "wall";
-        this.nodes[node].status = "wall";
-        this.nodes[node].weight = WEIGHT_WALL;
+      if (random < 0.35 && !relevantClassNames.includes(currentHTMLNode.className)) {
+        if (random < 0.05) {
+          currentHTMLNode.className = "unvisited weight";
+          this.nodes[node].status = "unvisited";
+          this.nodes[node].weight = WEIGHT_MID;
+        } else {
+          currentHTMLNode.className = "wall";
+          this.nodes[node].status = "wall";
+          this.nodes[node].weight = WEIGHT_WALL;
+        }
       }
     });
   }
