@@ -1,11 +1,14 @@
+var SPEED_MAP = {
+  "five": 16,
+  "twentyfive": 8,
+  "fifty": 4,
+  "seventyfive": 2,
+  "hundred": 1,
+}
+
 function animateMaze(board) {
   let nodes = board.wallsToAnimate.slice(0);
-  let speed = board.speed === "five" ? 150 : 
-  board.speed === "twentyfive" ? 100 : 
-  board.speed === "fifty" ? 40 : 
-  board.speed === "seventyfive" ? 9 :
-  board.speed === "hundred" ? 0 :
-  9;
+  let speed = SPEED_MAP[board.speed];
   function timeout(index) {
     setTimeout(function () {
         if (index === nodes.length){
@@ -13,7 +16,7 @@ function animateMaze(board) {
           board.toggleButtons();
           return;
         }
-        nodes[index].className = board.nodes[nodes[index].id].weight === 15 ? "unvisited weight" : "wall";
+        nodes[index].className = "wall";
         timeout(index + 1);
     }, speed);
   }

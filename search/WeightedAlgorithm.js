@@ -58,7 +58,7 @@ class WeightedAlgorithm extends Algorithm {
       }
     }
     unvisitedNodes.splice(closest_index, 1);
-    console.log("closest=" + closest.id + ", f=" + closest.f + ", g:" + closest.g + ", h:" + closest.h)
+    //console.log("closest=" + closest.id + ", f=" + closest.f + ", g:" + closest.g + ", h:" + closest.h)
     return closest;
   }
 

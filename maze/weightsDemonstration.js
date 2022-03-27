@@ -7,7 +7,7 @@ function weightsDemonstration(board) {
     board.wallsToAnimate.push(currentElement);
     let currentNode = board.nodes[currentId];
     currentNode.status = "wall";
-    currentNode.weight = 0;
+    currentNode.weight = WEIGHT_WALL;
     currentIdX--;
   }
   for (let currentIdX = board.height - 2; currentIdX > board.height - 11; currentIdX--) {
@@ -18,10 +18,10 @@ function weightsDemonstration(board) {
       let currentNode = board.nodes[currentId];
       if (currentIdX === board.height - 2 && currentIdY < 35 && currentIdY > 26) {
         currentNode.status = "wall";
-        currentNode.weight = 0;
+        currentNode.weight = WEIGHT_WALL;
       } else {
         currentNode.status = "unvisited";
-        currentNode.weight = 15;
+        currentNode.weight = WEIGHT_DEFAULT;
       }
     }
   }

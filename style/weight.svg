@@ -1,37 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 width="21.875px" height="21.875px" viewBox="0 0 21.875 21.875" enable-background="new 0 0 21.875 21.875" xml:space="preserve">
-<g id="Layer_4" display="none">
-	
-		<image display="inline" overflow="visible" width="18" height="24" xlink:href="../Downloads/yoooo/glyphicons-673-kettlebell.png"  transform="matrix(0.8497 0 0 0.8497 3.4233 1.0347)">
-	</image>
-</g>
-<g id="Layer_3">
-	<g>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<line fill="#420863" x1="14.587" y1="21.873" x2="14.587" y2="21.873"/>
-		<path fill="#420863" d="M6.531,21.38c-1.805-1.345-2.973-3.494-2.973-5.917c0-2.421,1.167-4.569,2.969-5.915"/>
-		<line fill="#420863" x1="7.287" y1="21.875" x2="7.282" y2="21.872"/>
-		<polyline fill="#420863" points="15.345,21.376 6.527,21.376 6.527,9.549 15.345,9.549 15.345,21.376 		"/>
-		<circle fill="none" stroke="#420863" stroke-width="2" stroke-miterlimit="10" cx="11.012" cy="6.914" r="5.512"/>
-		<path fill="#420863" d="M15.345,21.378c1.806-1.345,2.974-3.494,2.973-5.917c0-2.421-1.167-4.569-2.968-5.915"/>
-	</g>
-</g>
-<g id="Layer_2" display="none">
-	<g display="inline">
-		
-			<rect x="3.778" y="11.427" transform="matrix(-0.7071 0.7071 -0.7071 -0.7071 28.6357 16.3531)" fill="#420863" width="14.306" height="5.361"/>
-		
-			<rect x="3.792" y="5.088" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 13.1915 20.9994)" fill="#420863" width="14.305" height="5.361"/>
-	</g>
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="31px" height="32px" viewBox="0 0 31 32" enable-background="new 0 0 31 32" xml:space="preserve">
+<g>
+	<path fill="#828282" d="M28.5,11c0.276,0,0.5-0.224,0.5-0.5S28.776,10,28.5,10H21V2.5C21,2.224,20.776,2,20.5,2S20,2.224,20,2.5V10
+		h-9V2.5C11,2.224,10.776,2,10.5,2S10,2.224,10,2.5V10H2.5C2.224,10,2,10.224,2,10.5S2.224,11,2.5,11H10v9H2.5
+		C2.224,20,2,20.224,2,20.5S2.224,21,2.5,21H10v8.5c0,0.276,0.224,0.5,0.5,0.5s0.5-0.224,0.5-0.5V21h9v8.5
+		c0,0.276,0.224,0.5,0.5,0.5s0.5-0.224,0.5-0.5V21h7.5c0.276,0,0.5-0.224,0.5-0.5S28.776,20,28.5,20H21v-9H28.5z M20,20h-9v-9h9V20z
+		"/>
+	<path fill="#828282" d="M31,30.5v-29C31,0.673,30.327,0,29.5,0h-28C0.673,0,0,0.673,0,1.5v29C0,31.327,0.673,32,1.5,32h28
+		C30.327,32,31,31.327,31,30.5z M1,30.5v-29C1,1.224,1.225,1,1.5,1h28C29.775,1,30,1.224,30,1.5v29c0,0.276-0.225,0.5-0.5,0.5h-28
+		C1.225,31,1,30.776,1,30.5z"/>
 </g>
 </svg>

@@ -1,7 +1,7 @@
 // vahy (ceny) za prechod do vrcholu:
 var WEIGHT_WALL = Infinity;  // nepriechodny vrchol = stena
 var WEIGHT_MID = 5;  // stredna vaha
-var WEIGHT_DEFAULT = 1;  // defaultova vaha 
+var WEIGHT_DEFAULT = 1;  // defaultova (zakladna) vaha 
 
 /** Board node. */
 class BoardNode {
@@ -12,17 +12,17 @@ class BoardNode {
     this.r = parseInt(coordinates[0]); // row
     this.c = parseInt(coordinates[1]); // column
     // ... a nastavime defaultove hodnoty
-    this.reset(status)
+    this.reset(status, WEIGHT_DEFAULT)
   }
 
-  reset(status) {
+  reset(status, weight) {
     this.status = status;
     this.previousNode = null;
     this.direction = null;
     this.f = Infinity;
     this.g = Infinity;
     this.h = 0;
-    this.weight = WEIGHT_DEFAULT;
+    this.weight = weight;
   }
 }
 

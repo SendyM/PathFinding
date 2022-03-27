@@ -61,7 +61,7 @@
 }
 
 .visitedTargetNodeBlue {
-  background-image: url(circle.svg);
+  background-image: url(target.svg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -94,7 +94,7 @@
 }
 
 #mainText div {
-  position: absolute; 
+  position: absolute;
 }
 
 #board {
@@ -123,6 +123,13 @@
   animation-fill-mode: forwards;
   animation-play-state: running;
 }
+.visited.weight{
+  background-color: rgb(255, 254, 106);
+  background-image: url(weight.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
 
 @keyframes visitedAnimation {
   0% {
@@ -141,16 +148,10 @@
 .wall{
   background-color: #232425;
 }
-
 .unvisited{
   border: 1px solid #555555;
   background-color:#c4c4c4;
 }
-
-.borderlessWeight {
-  background-color: #848484;
-}
-
 .unvisited.weight{
   background-color: #848484;
 }
@@ -162,7 +163,7 @@
 }
 .target{
   /*border: 1px solid rgb(175, 216, 248);*/
-  background-image: url(circle.svg);
+  background-image: url(target.svg);
   /*background-color: rgb(255, 254, 106);*/
   /*background-color: rgba(232, 147, 12, 0.75);*/
   background-position: center;
@@ -190,7 +191,7 @@
 
 .shortest-path-unweighted{
   /*border: 1px solid rgb(175, 216, 248);*/
-  background:url(star.svg);
+  background:url(dot.svg);
   background-color: rgb(255, 254, 106);
   background-position: center;
   background-repeat: no-repeat;
@@ -234,7 +235,7 @@ p {
   -webkit-box-shadow: 0px -16px 26px 28px rgba(0,0,0,0.54);
   -moz-box-shadow: 0px -16px 26px 28px rgba(0,0,0,0.54);
   box-shadow: 0px -16px 26px 28px rgba(0,0,0,0.54);
-  
+
 }
 
 .navbar-inverse .navbar-nav > li > a {
@@ -282,7 +283,7 @@ p {
   width: 485px;
 }
 li a:hover{
-  color: #FF6F00; 
+  color: #FF6F00;
   filter: saturate(0.5);
 }
 #offcanvasRightLabel{

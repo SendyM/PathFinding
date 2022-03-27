@@ -53,7 +53,7 @@ function animateSearch(board, success) {
     if (previousNode) {
       let previousHTMLNode = document.getElementById(previousNode.id);
       if (!relevantClassNames.includes(previousHTMLNode.className)) {
-        previousHTMLNode.className = previousNode.weight === 15 ? "visited weight" : "visited";
+        previousHTMLNode.className = previousNode.weight === WEIGHT_MID ? "visited weight" : "visited";
       }
     }
   }
@@ -109,7 +109,7 @@ function drawShortestPathTimeout(board) {
     if (previousNode) {
       if (previousNode.id !== board.target && previousNode.id !== board.start) {
         let previousHTMLNode = document.getElementById(previousNode.id);
-        previousHTMLNode.className = previousNode.weight === 15 ? "shortest-path weight" : "shortest-path";
+        previousHTMLNode.className = previousNode.weight === WEIGHT_MID ? "shortest-path weight" : "shortest-path";
       }
     } else {
       let element = document.getElementById(board.start);

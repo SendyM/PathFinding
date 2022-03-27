@@ -11,9 +11,7 @@ class Board {
     this.wallsToAnimate = [];
     this.mouseDown = false;
     this.pressedNodeStatus = "normal";
-    this.previouslyPressedNodeStatus = null;
     this.previouslySwitchedNode = null;
-    this.previouslySwitchedNodeWeight = 0;
     this.currentAlgorithm = null;
     this.buttonsOn = false;
     this.speed = "seventyfive";
@@ -59,13 +57,13 @@ class Board {
         let currentElement = document.getElementById(currentId);
         currentElement.onmousedown = (e) => {
           e.preventDefault();
-          if (this.buttonsOn) {
+          if (this.buttonsOn && e.button === 0) { // 0 je lave tlacitko
             this.mouseDown = true;
             if (currentNode.status === "start" || currentNode.status === "target") {
               this.pressedNodeStatus = currentNode.status;
             } else {
               this.pressedNodeStatus = "normal";
-              this.changeNormalNode(currentNode);
+              this.editNodeChange(currentNode);
             }
           }
         }
@@ -77,21 +75,21 @@ class Board {
         currentElement.onmouseenter = () => {
           if (this.buttonsOn && this.mouseDown) {
             if (this.pressedNodeStatus !== "normal") {
-              this.changeSpecialNode(currentNode);
+              this.draggedNodeEntered(currentNode);
               if (this.pressedNodeStatus === "target") {
                 this.target = currentId;
               } else if (this.pressedNodeStatus === "start") {
                 this.start = currentId;
               }
             } else {
-              this.changeNormalNode(currentNode);
+              this.editNodeChange(currentNode);
             }
           }
         }
         currentElement.onmouseleave = () => {
           if (this.buttonsOn) {
             if (this.mouseDown && this.pressedNodeStatus !== "normal") {
-              this.changeSpecialNode(currentNode);
+              this.draggedNodeLeft(currentNode);
             }
           }
         }
@@ -99,49 +97,41 @@ class Board {
     }
   }
 
-  changeSpecialNode(currentNode) {
-    let element = document.getElementById(currentNode.id), previousElement;
-    if (this.previouslySwitchedNode) {
-      previousElement = document.getElementById(this.previouslySwitchedNode.id);
-    }
-    if (currentNode.status !== "target" && currentNode.status !== "start") {
-      if (this.previouslySwitchedNode) {
-        this.previouslySwitchedNode.status = this.previouslyPressedNodeStatus;
-        previousElement.className = this.previouslySwitchedNodeWeight === 15 ?
-          "unvisited weight" : this.previouslyPressedNodeStatus;
-        this.previouslySwitchedNode.weight = this.previouslySwitchedNodeWeight === 15 ?
-          15 : 0;
-        this.previouslySwitchedNode = null;
-        this.previouslySwitchedNodeWeight = currentNode.weight;
-
-        this.previouslyPressedNodeStatus = currentNode.status;
-        element.className = this.pressedNodeStatus;
-        currentNode.status = this.pressedNodeStatus;
-        currentNode.weight = 0;
-      }
-    } else if (currentNode.status !== this.pressedNodeStatus) {
-      this.previouslySwitchedNode.status = this.pressedNodeStatus;
-      previousElement.className = this.pressedNodeStatus;
-    } else if (currentNode.status === this.pressedNodeStatus) {
+  draggedNodeLeft(currentNode) {
+    let element = document.getElementById(currentNode.id);
+    if (element.className == "unvisited" || element.className == this.pressedNodeStatus || currentNode.status == this.pressedNodeStatus) {
       this.previouslySwitchedNode = currentNode;
-      element.className = this.previouslyPressedNodeStatus;
-      currentNode.status = this.previouslyPressedNodeStatus;
     }
   }
 
-  changeNormalNode(currentNode) {
+  draggedNodeEntered(currentNode) {
+    let element = document.getElementById(currentNode.id);
+    let previousElement = this.previouslySwitchedNode ? document.getElementById(this.previouslySwitchedNode.id) : null;
+    if (currentNode.status !== "target" && currentNode.status !== "start" && element.className === "unvisited" && this.previouslySwitchedNode) {
+      // setup left node
+      previousElement.className = "unvisited";
+      this.previouslySwitchedNode.status = "unvisited";
+      this.previouslySwitchedNode.weight = WEIGHT_DEFAULT;
+      // setup entered node
+      element.className = this.pressedNodeStatus;
+      currentNode.status = this.pressedNodeStatus;
+      currentNode.weight = WEIGHT_DEFAULT;
+    }
+  }
+
+  editNodeChange(currentNode) {
     let element = document.getElementById(currentNode.id);
     let relevantStatuses = ["start", "target"];
     if (this.block === "Wall") {
       if (!relevantStatuses.includes(currentNode.status)) {
         element.className = currentNode.status !== "wall" ? "wall" : "unvisited";
         currentNode.status = element.className !== "wall" ? "unvisited" : "wall";
-        currentNode.weight = 0;
+        currentNode.weight = WEIGHT_DEFAULT;
       }
     } else if (this.block === "Weight") {
       if (!relevantStatuses.includes(currentNode.status)) {
-        element.className = currentNode.weight !== 15 ? "unvisited weight" : "unvisited";
-        currentNode.weight = element.className !== "unvisited weight" ? 0 : 15;
+        element.className = currentNode.weight !== WEIGHT_MID ? "unvisited weight" : "unvisited";
+        currentNode.weight = element.className === "unvisited weight" ? WEIGHT_MID : WEIGHT_DEFAULT;
         currentNode.status = "unvisited";
       }
     }
@@ -155,7 +145,7 @@ class Board {
       if (random < 0.25 && !relevantClassNames.includes(currentHTMLNode.className)) {
         currentHTMLNode.className = "wall";
         this.nodes[node].status = "wall";
-        this.nodes[node].weight = WEIGHT_DEFAULT;
+        this.nodes[node].weight = WEIGHT_WALL;
       }
     });
   }
@@ -167,15 +157,12 @@ class Board {
     document.getElementById(start.id).className = "start";
     target.status = "target";
     document.getElementById(target.id).className = "target";
-
     Object.keys(this.nodes).forEach(id => {
       let currentNode = this.nodes[id];
-      currentNode.reset(currentNode.status)
-      let currentHTMLNode = document.getElementById(id);
-      let relevantStatuses = ["wall", "start", "target"];
-      if (!relevantStatuses.includes(currentNode.status)) {
+      currentNode.reset(currentNode.status, currentNode.weight);
+      if (!["wall", "start", "target"].includes(currentNode.status)) {
         currentNode.status = "unvisited";
-        currentHTMLNode.className = currentNode.weight === WEIGHT_DEFAULT ? "unvisited" : "unvisited weight";
+        document.getElementById(id).className = currentNode.weight === WEIGHT_DEFAULT ? "unvisited" : "unvisited weight";
       }
     });
   }
@@ -184,11 +171,10 @@ class Board {
     this.clearPath();
     Object.keys(this.nodes).forEach(id => {
       let currentNode = this.nodes[id];
-      let currentHTMLNode = document.getElementById(id);
-      if (currentNode.status === "wall" || currentNode.weight !== WEIGHT_DEFAULT) {
+      if (!["start", "target"].includes(currentNode.status)) {
         currentNode.status = "unvisited";
         currentNode.weight = WEIGHT_DEFAULT;
-        currentHTMLNode.className = "unvisited";
+        document.getElementById(id).className = "unvisited";
       }
     });
   }
@@ -291,7 +277,7 @@ class Board {
       this.clearWalls();
       this.clearPath();
       this.toggleButtons();
-      recursiveDivisionMaze(this, 2, this.height - 3, 2, this.width - 3, "horizontal", false, "wall");
+      recursiveDivisionMaze(this, 2, this.height - 3, 2, this.width - 3, "horizontal", false);
       animateMaze(this);
     }
 
