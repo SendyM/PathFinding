@@ -9,6 +9,8 @@ var SPEED_MAP = {
 function animateSearch(board, success) {
   let nodes = board.nodesToAnimate.slice(0);
   let speed = SPEED_MAP[board.speed];
+  console.log(speed);
+  console.log(board.speed);
   let shortestNodes;
   function timeout(index) {
     setTimeout(function () {

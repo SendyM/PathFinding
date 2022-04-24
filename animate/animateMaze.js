@@ -1,4 +1,4 @@
-var SPEED_MAP = {
+var MAZE_SPEED_MAP = {
   "five": 16,
   "twentyfive": 8,
   "fifty": 4,
@@ -8,7 +8,7 @@ var SPEED_MAP = {
 
 function animateMaze(board) {
   let nodes = board.wallsToAnimate.slice(0);
-  let speed = SPEED_MAP[board.speed];
+  let speed = MAZE_SPEED_MAP[board.speed];
   function timeout(index) {
     setTimeout(function () {
         if (index === nodes.length){
